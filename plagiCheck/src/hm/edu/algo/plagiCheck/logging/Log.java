@@ -1,4 +1,4 @@
-package hm.edu.keckes.algo.plagiCheck.logging;
+package hm.edu.algo.plagiCheck.logging;
 
 public class Log {
 	public final static int URGENT=0;

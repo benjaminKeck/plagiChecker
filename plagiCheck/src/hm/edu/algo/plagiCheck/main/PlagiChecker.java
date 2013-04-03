@@ -1,7 +1,7 @@
-package hm.edu.keckes.algo.plagiCheck.main;
+package hm.edu.algo.plagiCheck.main;
 
-import hm.edu.keckes.algo.plagiCheck.logging.Log;
-import hm.edu.keckes.algo.plagiCheck.triePackage.TrieFactory;
+import hm.edu.algo.plagiCheck.logging.Log;
+import hm.edu.algo.plagiCheck.triePackage.TrieFactory;
 
 public class PlagiChecker {
 

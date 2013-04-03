@@ -1,4 +1,4 @@
-package hm.edu.keckes.algo.plagiCheck.triePackage;
+package hm.edu.algo.plagiCheck.triePackage;
 
 import java.util.Iterator;
 

@@ -1,4 +1,4 @@
-package hm.edu.keckes.algo.plagiCheck.triePackage;
+package hm.edu.algo.plagiCheck.triePackage;
 
 public interface ITrieFactory<K extends Comparable> {
 	public Object put(K key, Object v);

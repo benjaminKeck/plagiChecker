@@ -1,4 +1,4 @@
-package hm.edu.keckes.algo.plagiCheck.kAux;
+package hm.edu.algo.plagiCheck.kAux;
 
 /**
  * 
