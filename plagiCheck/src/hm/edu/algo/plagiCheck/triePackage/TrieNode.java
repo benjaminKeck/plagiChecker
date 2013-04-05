@@ -18,6 +18,7 @@ public class TrieNode implements ITrieNode{
 	public ITrieReference recursiveInsert(Iterator it, Object value) {
 		if(it.hasNext()){
 			//hat Knoten schon einen Value mit diesem value...if(partOfKeyToTrieNode.co)
+			//if(!partOfKeyToTrieNode.containsKey(key))
 			new TrieNode(this, value);
 		}
 		return null;

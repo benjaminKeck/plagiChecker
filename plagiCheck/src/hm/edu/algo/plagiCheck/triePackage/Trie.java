@@ -2,12 +2,20 @@ package hm.edu.algo.plagiCheck.triePackage;
 
 import java.util.Iterator;
 
+/**
+ * 
+ * @author Keckes
+ * 
+ * @param <K>
+ */
 public class Trie<K extends Comparable<K>> implements ITrie<K>{
 	private ITrieNode root;
 	
 	public Trie(){
 		this.root = new TrieNode(null, null);
 	}
+	
+	
 	@Override
 	public Object put(K key, Object v) {
 		Object oldVal = get(key);
