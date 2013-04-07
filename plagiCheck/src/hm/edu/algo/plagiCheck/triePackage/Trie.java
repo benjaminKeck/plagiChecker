@@ -1,5 +1,7 @@
 package hm.edu.algo.plagiCheck.triePackage;
 
+import hm.edu.algo.plagiCheck.kAux.CharIterator;
+
 import java.util.Iterator;
 
 /**
@@ -14,10 +16,9 @@ public class Trie<K extends Comparable<K>> implements ITrie<K>{
 	public Trie(){
 		this.root = new TrieNode(null, null);
 	}
-	// servas
 	
 	@Override
-	public Object put(K key, Object v) {
+	public Object put(K key, Object value) {
 		Object oldVal = get(key);
 		
 		/*
@@ -30,6 +31,16 @@ public class Trie<K extends Comparable<K>> implements ITrie<K>{
 	}
 
 	@Override
+	public Object put(String key, Object value) {
+		Iterator it = new CharIterator(key);
+		
+		root.recursiveInsert(it, value);
+		
+		root.showValues();
+		return null;
+	}
+	
+	@Override
 	public Object get(K key) {
 		// TODO Auto-generated method stub
 		return null;
@@ -40,5 +51,7 @@ public class Trie<K extends Comparable<K>> implements ITrie<K>{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	
 
 }
