@@ -33,14 +33,18 @@ public class TrieNode implements ITrieNode{
 			if(!partOfKeyToTrieNode.containsKey(buchstabe)){
 				System.out.println("legt "+buchstabe+" an");
 				partOfKeyToTrieNode.put(buchstabe, new TrieNode(this, value));
-				partOfKeyToTrieNode.get(buchstabe).recursiveInsert(new CharIterator(rest), value);
+				
+				//return new TrieReference(value, 1, false);
 			}
-			else{
+			
+			return partOfKeyToTrieNode.get(buchstabe).recursiveInsert(new CharIterator(rest), value);
+			/*else{
 				System.out.println(buchstabe+ " ist vorhanden");
 				partOfKeyToTrieNode.get(buchstabe).recursiveInsert(new CharIterator(rest), value);
-			}
+				return new TrieReference(value, 1, true);
+			}*/
 		}
-		return null;
+		return new TrieReference(null, 1, false);
 	}
 	
 	public void showValues(){
