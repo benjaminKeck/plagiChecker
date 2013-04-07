@@ -1,7 +1,8 @@
 package hm.edu.algo.plagiCheck.main;
 
 import hm.edu.algo.plagiCheck.logging.Log;
-import hm.edu.algo.plagiCheck.triePackage.Trie;
+import hm.edu.algo.plagiCheck.triePackage.*;
+
 
 public class PlagiChecker {
 
@@ -20,8 +21,9 @@ public class PlagiChecker {
 			Log.println(traceLevel, "zweite Datei: "+args[1]);
 		}
 		
-		Trie trie = new Trie<Integer>();
-		trie.put(1, "asd");
+		ITrie trie = new Trie<String>();
+		trie.put("Software", new Integer(4711));
+		trie.put("Softeis", new Integer(4712));
 	}
 
 }
