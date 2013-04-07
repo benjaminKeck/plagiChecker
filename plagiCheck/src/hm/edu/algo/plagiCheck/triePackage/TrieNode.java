@@ -14,6 +14,7 @@ public class TrieNode implements ITrieNode{
 	public TrieNode(ITrieNode parent, Object value){
 		this.parent = parent;
 		this.partOfKeyToTrieNode = new TreeMap<Comparable, ITrieNode>();
+		this.value=value;
 	}
 
 	@Override
@@ -43,11 +44,21 @@ public class TrieNode implements ITrieNode{
 	}
 	
 	public void showValues(){
-		System.out.println("Value: "+(Integer)value);
+		System.out.print("Value: "+(Integer)value+" Buchstaben: ");
+		
+		Iterator key = partOfKeyToTrieNode.keySet().iterator();
+		while(key.hasNext()){
+			Character buchstabe = (Character)key.next();
+			System.out.print(buchstabe+", ");
+		}
+		System.out.println("");
 		
 		Iterator it= partOfKeyToTrieNode.values().iterator();
 		while(it.hasNext()){
-			((TrieNode)it.next()).showValues();
+			ITrieNode temp = (TrieNode)it.next();
+			
+			temp.showValues();
+			
 		}
 	}
 
