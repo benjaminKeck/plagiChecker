@@ -2,6 +2,13 @@ package hm.edu.algo.plagiCheck.triePackage;
 
 public class TrieReference implements ITrieReference{
 
+	// Attribute
+	private final Object value;
+	
+	private final int depth;
+	
+	private final boolean found;
+	
 	@Override
 	public boolean getFound() {
 		// TODO Auto-generated method stub
@@ -14,4 +21,9 @@ public class TrieReference implements ITrieReference{
 		return null;
 	}
 
+	TrieReference (Object value, int depth, boolean found){
+		this.value = value;
+		this.depth = depth;
+		this.found = found;
+	}
 }
