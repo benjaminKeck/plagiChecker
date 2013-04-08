@@ -19,30 +19,31 @@ public class TrieNode implements ITrieNode{
 
 	@Override
 	public ITrieReference recursiveInsert(Iterator it, Object value) {
+		
+		//Hat Iterator noch Nachfolger?
 		if(it.hasNext()){
-			//hat Knoten schon einen Value mit diesem value...if(partOfKeyToTrieNode.co)
-			Character buchstabe = (Character)it.next();
-			//System.out.println("Char: "+buchstabe);
 			
+			//Aktuellen Wert aus Iterator holen
+			Comparable key = (Comparable)it.next();
+			
+			//Den Rest der Buchstaben in variable schreiben
 			String rest="";
 			while(it.hasNext()){
 				rest = rest+it.next();
 			}
-			//System.out.println("rest: "+rest);
 			
-			if(!partOfKeyToTrieNode.containsKey(buchstabe)){
-				System.out.println("legt "+buchstabe+" an");
-				partOfKeyToTrieNode.put(buchstabe, new TrieNode(this, value));
+			//Gibt es den Key in dieser TrieNode noch nicht?
+			if(!partOfKeyToTrieNode.containsKey(key)){
 				
-				//return new TrieReference(value, 1, false);
+				//Key anlegen
+				System.out.println("legt "+(Character)key+" an");
+				partOfKeyToTrieNode.put(key, new TrieNode(this, value));
+			}
+			else{
+				System.out.println("Buchstabe "+(Character)key+" schon vorhanden");
 			}
 			
-			return partOfKeyToTrieNode.get(buchstabe).recursiveInsert(new CharIterator(rest), value);
-			/*else{
-				System.out.println(buchstabe+ " ist vorhanden");
-				partOfKeyToTrieNode.get(buchstabe).recursiveInsert(new CharIterator(rest), value);
-				return new TrieReference(value, 1, true);
-			}*/
+			return partOfKeyToTrieNode.get(key).recursiveInsert(new CharIterator(rest), value);
 		}
 		return new TrieReference(null, 1, false);
 	}
