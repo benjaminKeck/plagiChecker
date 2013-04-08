@@ -24,6 +24,7 @@ public class PlagiChecker {
 		ITrie trie = new Trie<String>();
 		trie.put("Software", new Integer(4711));
 		trie.put("Softeis", new Integer(4712));
+		trie.put("Sware", new Integer(4712));
 	}
 
 }
