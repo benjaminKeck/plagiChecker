@@ -26,12 +26,6 @@ public class TrieNode implements ITrieNode{
 			//Aktuellen Wert aus Iterator holen
 			Comparable key = (Comparable)it.next();
 			
-			//Den Rest der Buchstaben in variable schreiben
-			String rest="";
-			while(it.hasNext()){
-				rest = rest+it.next();
-			}
-			
 			//Gibt es den Key in dieser TrieNode noch nicht?
 			if(!partOfKeyToTrieNode.containsKey(key)){
 				
@@ -43,7 +37,7 @@ public class TrieNode implements ITrieNode{
 				System.out.println("Buchstabe "+(Character)key+" schon vorhanden");
 			}
 			
-			return partOfKeyToTrieNode.get(key).recursiveInsert(new CharIterator(rest), value);
+			return partOfKeyToTrieNode.get(key).recursiveInsert(it, value);
 		}
 		return new TrieReference(null, 1, false);
 	}

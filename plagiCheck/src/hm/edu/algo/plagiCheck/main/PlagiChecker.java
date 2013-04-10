@@ -14,7 +14,8 @@ public class PlagiChecker {
 		final int traceLevel = Log.URGENT;
 		
 		if(args.length!=2){
-			System.out.println("Sie müssen zwei Dateien zum Vergleich angeben\n das Programm wurde beendet!");
+			System.out.println("Sie müssen zwei Dateien zum Vergleich angeben\nDas Programm wird beendet!");
+			return;
 		}
 		else{
 			Log.println(traceLevel, "erste Datei: "+args[0]);
