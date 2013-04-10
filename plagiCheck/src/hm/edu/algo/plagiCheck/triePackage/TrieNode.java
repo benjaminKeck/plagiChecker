@@ -1,11 +1,14 @@
 package hm.edu.algo.plagiCheck.triePackage;
 
-import hm.edu.algo.plagiCheck.kAux.CharIterator;
-
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * Diese Klasse stellt einen einzelnen Knoten in dem Triesuchbaum dar.
+ * @author keckes
+ *
+ */
 public class TrieNode implements ITrieNode{
 	private Map<Comparable, ITrieNode> partOfKeyToTrieNode;
 	private Object value;
