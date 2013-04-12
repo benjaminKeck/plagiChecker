@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 /**
  * 
- * @author Keckes
+ * @author Keckes,klaes
  * 
  * @param <K>
  */
@@ -35,7 +35,6 @@ public class Trie<K extends Comparable<K>> implements ITrie<K>{
 		Iterator it = new CharIterator(key);
 		
 		root.recursiveInsert(it, value);
-		
 		root.showValues();
 		return null;
 	}

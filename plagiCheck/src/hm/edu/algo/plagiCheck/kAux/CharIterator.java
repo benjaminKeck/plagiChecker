@@ -2,6 +2,11 @@ package hm.edu.algo.plagiCheck.kAux;
 
 import java.util.Iterator;
 
+/**
+ * Wird eigentlich nicht mehr benötigt.
+ * @author keckes
+ *
+ */
 public class CharIterator implements Iterator<Character>{
 
 	private final String str;
