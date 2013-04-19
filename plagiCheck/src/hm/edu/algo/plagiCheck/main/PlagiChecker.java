@@ -1,6 +1,8 @@
 package hm.edu.algo.plagiCheck.main;
 
+import hm.edu.algo.plagiCheck.kAux.IActionAtInsert;
 import hm.edu.algo.plagiCheck.kAux.KAux;
+import hm.edu.algo.plagiCheck.kAux.StringCoding;
 import hm.edu.algo.plagiCheck.logging.Log;
 import hm.edu.algo.plagiCheck.triePackage.*;
 
@@ -24,14 +26,14 @@ public class PlagiChecker {
 		}
 		
 		ITrie trie = new Trie<String>();
-		trie.put("wolf", new Integer(4711));
-		trie.put("wo", new Integer(4712));
-		trie.put("woher", new Integer(4713));
-		trie.put("wolfsjunge", new Integer(4714));
-		trie.put("wolfsmensch", new Integer(4715));
-		trie.put("wolfsmenschen", new Integer(4716));
+		IActionAtInsert action = new StringCoding();
+		trie.put("wolf", action);
+		trie.put("wolfsjunge", action);
+		trie.put("wolfsmann", action);
+		trie.put("wolf", action);
+		trie.put("warze", action);
 		trie.toString();
 		
-		KAux.inhaltVonDateiAuslesen("c:\\users\\keckes\\test.txt");
+		//KAux.inhaltVonDateiAuslesen("c:\\users\\keckes\\test.txt");
 	}
 }

@@ -1,5 +1,7 @@
 package hm.edu.algo.plagiCheck.triePackage;
 
+import hm.edu.algo.plagiCheck.kAux.IActionAtInsert;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -30,7 +32,7 @@ public class TrieNode implements ITrieNode{
 	}
 
 	@Override
-	public ITrieReference recursiveInsert(Iterator it, Object value) {
+	public ITrieReference recursiveInsert(Iterator it, IActionAtInsert action) {
 
 		if(it.hasNext()){
 			
@@ -40,14 +42,15 @@ public class TrieNode implements ITrieNode{
 				partOfKeyToTrieNode.put(key, new TrieNode(this, null));
 				//System.out.println("Lege "+(Character)key+" mit Value "+null);
 			}
-			return partOfKeyToTrieNode.get(key).recursiveInsert(it, value);
+			return partOfKeyToTrieNode.get(key).recursiveInsert(it, action);
 		}
+		//Wenn der Value gefunden wurde
 		if(this.value!=null){
-			this.value=value;
+			this.value=action.actionInCaseOfFoundKey(this.value);
 			return new TrieReference(value, 1, true);
 		}
 		else{
-			this.value=value;
+			this.value=action.actionInCaseOfNotFoundKey();
 			return new TrieReference(value, 1, false);
 		}
 		
@@ -59,9 +62,14 @@ public class TrieNode implements ITrieNode{
 		Iterator kante = partOfKeyToTrieNode.keySet().iterator();
 		
 		while(kante.hasNext()){
-			Character kName = (Character)kante.next();
-			System.out.print("("+(Integer)value+")");
-			System.out.println(einruecken(depth) + kName);
+			Object nextKante = kante.next();
+			Character kName = (Character)nextKante;
+			//System.out.print("("+(Integer)value+")");
+			System.out.print(einruecken(depth) + kName);
+			if(partOfKeyToTrieNode.get(kName).getValue()!=null)
+				System.out.println(" -> "+(Integer)partOfKeyToTrieNode.get(kName).getValue());
+			else
+				System.out.println("");
 			partOfKeyToTrieNode.get(kName).showValues(++depth);
 			depth--;
 		}
@@ -71,6 +79,9 @@ public class TrieNode implements ITrieNode{
 		for(int i=0; i<depth; i++)
 			sum+="  ";
 		return sum;
+	}
+	public Object getValue(){
+		return value;
 	}
 
 }
