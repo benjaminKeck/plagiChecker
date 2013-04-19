@@ -4,5 +4,5 @@ import java.util.Iterator;
 
 public interface ITrieNode {
 	public ITrieReference recursiveInsert(Iterator it, Object value);
-	public void showValues();
+	public void showValues(int depth);
 }

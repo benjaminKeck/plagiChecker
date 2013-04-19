@@ -31,48 +31,46 @@ public class TrieNode implements ITrieNode{
 
 	@Override
 	public ITrieReference recursiveInsert(Iterator it, Object value) {
-		
-		//Hat Iterator noch Nachfolger?
+
 		if(it.hasNext()){
-			//System.out.println("Buchstabe ");
-			//Aktuellen Wert aus Iterator holen
+			
 			Comparable key = (Comparable)it.next();
 			
-			//Gibt es den Key in dieser TrieNode noch nicht?
 			if(!partOfKeyToTrieNode.containsKey(key)){
-				//Key anlegen
-				//System.out.println("legt "+(Character)key+" an");
-				System.out.print((Character)key);
-				partOfKeyToTrieNode.put(key, new TrieNode(this, value));			
+				partOfKeyToTrieNode.put(key, new TrieNode(this, null));
+				//System.out.println("Lege "+(Character)key+" mit Value "+null);
 			}
-			else{
-				//System.out.println("Buchstabe "+(Character)key+" schon vorhanden");
-				System.out.print((Character)key);
-			}
-			return partOfKeyToTrieNode.get(key).recursiveInsert(it, value);	
+			return partOfKeyToTrieNode.get(key).recursiveInsert(it, value);
 		}
-		System.out.println();
+		if(this.value!=null){
+			this.value=value;
+			return new TrieReference(value, 1, true);
+		}
+		else{
+			this.value=value;
+			return new TrieReference(value, 1, false);
+		}
 		
-		return new TrieReference(this,partOfKeyToTrieNode.size(),true);
 	}
 	
-	public void showValues(){
-		System.out.print("Value: "+(Integer)value+" Buchstaben: ");
+	public void showValues(int depth){
+
 		
-		Iterator key = partOfKeyToTrieNode.keySet().iterator();
-		while(key.hasNext()){
-			Character buchstabe = (Character)key.next();
-			System.out.print(buchstabe+", ");
-		}
-		System.out.println("");
+		Iterator kante = partOfKeyToTrieNode.keySet().iterator();
 		
-		Iterator it= partOfKeyToTrieNode.values().iterator();
-		while(it.hasNext()){
-			ITrieNode temp = (TrieNode)it.next();
-			
-			temp.showValues();
-			
+		while(kante.hasNext()){
+			Character kName = (Character)kante.next();
+			System.out.print("("+(Integer)value+")");
+			System.out.println(einruecken(depth) + kName);
+			partOfKeyToTrieNode.get(kName).showValues(++depth);
+			depth--;
 		}
+	}
+	private String einruecken(int depth){
+		String sum="";
+		for(int i=0; i<depth; i++)
+			sum+="  ";
+		return sum;
 	}
 
 }

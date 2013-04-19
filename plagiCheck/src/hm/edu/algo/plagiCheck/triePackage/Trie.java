@@ -35,7 +35,7 @@ public class Trie<K extends Comparable<K>> implements ITrie<K>{
 		Iterator it = new CharIterator(key);
 		
 		root.recursiveInsert(it, value);
-		root.showValues();
+		//root.showValues(0);
 		return null;
 	}
 	
@@ -51,6 +51,9 @@ public class Trie<K extends Comparable<K>> implements ITrie<K>{
 		return false;
 	}
 
-	
+	public String toString(){
+		root.showValues(0);
+		return "";
+	}
 
 }

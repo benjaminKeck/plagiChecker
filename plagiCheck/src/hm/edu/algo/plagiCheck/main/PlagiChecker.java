@@ -15,7 +15,7 @@ public class PlagiChecker {
 		final int traceLevel = Log.URGENT;
 		
 		if(args.length!=2){
-			System.out.println("Sie m���ssen zwei Dateien zum Vergleich angeben\nDas Programm wird beendet!");
+			System.out.println("Sie muessen zwei Dateien zum Vergleich angeben\nDas Programm wird beendet!");
 			return;
 		}
 		else{
@@ -23,12 +23,15 @@ public class PlagiChecker {
 			Log.println(traceLevel, "zweite Datei: "+args[1]);
 		}
 		
-		
 		ITrie trie = new Trie<String>();
-		trie.put("Software", new Integer(4711));
-		trie.put("Softeis", new Integer(4712));
-		trie.put("Sware", new Integer(4713));
+		trie.put("wolf", new Integer(4711));
+		trie.put("wo", new Integer(4712));
+		trie.put("woher", new Integer(4713));
+		trie.put("wolfsjunge", new Integer(4714));
+		trie.put("wolfsmensch", new Integer(4715));
+		trie.put("wolfsmenschen", new Integer(4716));
+		trie.toString();
 		
-		KAux.inhaltVonDateiAuslesen("//users//bernhardklauser//Documents//test.txt");
+		KAux.inhaltVonDateiAuslesen("c:\\users\\keckes\\test.txt");
 	}
 }
