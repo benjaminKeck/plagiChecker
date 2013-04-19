@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class Ausleser {
 	  public static void main(String[] args) throws IOException
 	  {
-	    FileReader fr = new FileReader("C:\\Users\\Prodanova\\workspaceBagi\\test.txt");
+	    FileReader fr = new FileReader("C:\\Users\\keckes\\test.txt");
 	    BufferedReader br = new BufferedReader(fr);
 
 	    String zeile = "";
