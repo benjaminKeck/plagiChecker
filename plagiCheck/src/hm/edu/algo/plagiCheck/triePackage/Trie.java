@@ -1,6 +1,8 @@
 package hm.edu.algo.plagiCheck.triePackage;
 
 import hm.edu.algo.plagiCheck.kAux.CharIterator;
+import hm.edu.algo.plagiCheck.kAux.IActionAtInsert;
+import hm.edu.algo.plagiCheck.kAux.StringCoding;
 
 import java.util.Iterator;
 
@@ -31,11 +33,9 @@ public class Trie<K extends Comparable<K>> implements ITrie<K>{
 	}
 
 	@Override
-	public Object put(String key, Object value) {
+	public Object put(String key, IActionAtInsert action) {
 		Iterator it = new CharIterator(key);
-		
-		root.recursiveInsert(it, value);
-		//root.showValues(0);
+		root.recursiveInsert(it, action);
 		return null;
 	}
 	
