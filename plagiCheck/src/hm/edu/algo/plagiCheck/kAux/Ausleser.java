@@ -5,6 +5,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
+/**
+ * 
+ * @author Baggy
+ *
+ */
 public class Ausleser {
 	  public static void main(String[] args) throws IOException
 	  {
