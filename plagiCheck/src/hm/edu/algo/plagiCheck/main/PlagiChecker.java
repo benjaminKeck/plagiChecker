@@ -1,8 +1,10 @@
 package hm.edu.algo.plagiCheck.main;
 
 import hm.edu.algo.plagiCheck.kAux.IActionAtInsert;
+import hm.edu.algo.plagiCheck.kAux.ITokenizer;
 import hm.edu.algo.plagiCheck.kAux.KAux;
 import hm.edu.algo.plagiCheck.kAux.StringCoding;
+import hm.edu.algo.plagiCheck.kAux.Tokenizer;
 import hm.edu.algo.plagiCheck.logging.Log;
 import hm.edu.algo.plagiCheck.triePackage.*;
 
@@ -21,10 +23,12 @@ public class PlagiChecker {
 			return;
 		}
 		else{
-			Log.println(traceLevel, "erste Datei: "+args[0]);
-			Log.println(traceLevel, "zweite Datei: "+args[1]);
+			ITrie trie = new Trie<String>();
+			ITokenizer tokenizer = new Tokenizer(args[0], trie, new StringCoding());
+			tokenizer.start();
+			
 		}
-		
+		/*
 		ITrie trie = new Trie<String>();
 		IActionAtInsert action = new StringCoding();
 		trie.put("wolf", action);
@@ -33,7 +37,7 @@ public class PlagiChecker {
 		trie.put("wolf", action);
 		trie.put("warze", action);
 		trie.toString();
-		
+		*/
 		//KAux.inhaltVonDateiAuslesen("c:\\users\\keckes\\test.txt");
 	}
 }

@@ -14,7 +14,7 @@ import java.util.Iterator;
  */
 public class Trie<K extends Comparable<K>> implements ITrie<K>{
 	private ITrieNode root;
-	//hallo
+	
 	public Trie(){
 		this.root = new TrieNode(null, null);
 	}
