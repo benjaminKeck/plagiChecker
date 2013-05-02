@@ -57,8 +57,6 @@ public class TrieNode implements ITrieNode{
 	}
 	
 	public void showValues(int depth){
-
-		
 		Iterator kante = partOfKeyToTrieNode.keySet().iterator();
 		
 		while(kante.hasNext()){

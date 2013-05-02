@@ -26,6 +26,7 @@ public class PlagiChecker {
 			ITrie trie = new Trie<String>();
 			ITokenizer tokenizer = new Tokenizer(args[0], trie, new StringCoding());
 			tokenizer.start();
+			System.out.println(trie.toString());
 			
 		}
 		/*
