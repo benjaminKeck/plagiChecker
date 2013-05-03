@@ -40,7 +40,7 @@ public class Tokenizer implements ITokenizer{
 		    	String[] zeileSplit = zeile.split(" ");
 		    	for(String wort: zeileSplit) {
 		    		wort = Pattern.compile("\\p{Punct}").matcher(wort).replaceAll("");
-		    		//System.out.println(wort);
+		    		
 		    		trie.put(wort, action);
 		    	}
 		    }
