@@ -7,4 +7,10 @@ public class FilterLexer implements ILexer {
 	public FilterLexer(ILexer base){
 		this.base = base;
 	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -10,12 +10,12 @@ import hm.edu.algo.plagiCheck.logging.Log;
 import hm.edu.algo.plagiCheck.triePackage.ITrie;
 
 public class Tokenizer implements ITokenizer{
-	private String file;
+	private String fileName;
 	private ITrie trie;
 	private IActionAtInsert action;
 	
 	public Tokenizer(String file, ITrie trie, IActionAtInsert action){
-		this.file = file;
+		this.fileName = file;
 		this.trie = trie;
 		this.action = action;
 	}
@@ -24,9 +24,9 @@ public class Tokenizer implements ITokenizer{
 		
 		FileReader fr;
 		try {
-			fr = new FileReader(file);
+			fr = new FileReader(fileName);
 			BufferedReader br = new BufferedReader(fr);
-			Log.println(Log.URGENT, "Datei: "+file+" geoeffnet");
+			Log.println(Log.URGENT, "Datei: "+fileName+" geoeffnet");
 			
 			String zeile = "";
 
@@ -49,7 +49,7 @@ public class Tokenizer implements ITokenizer{
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			Log.println(Log.URGENT, "Datei "+file+" konnte nicht gefunden werden");
+			Log.println(Log.URGENT, "Datei "+fileName+" konnte nicht gefunden werden");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,14 +57,14 @@ public class Tokenizer implements ITokenizer{
 	    
 	}
 
-	@Override
+	
 	public void setTrieAndAction(ITrie trie, IActionAtInsert action) {
 		this.trie = trie;
 		this.action = action;
 	}
 
-	@Override
+
 	public void setFile(String file) {
-		this.file=file;
+		this.fileName=file;
 	}
 }
