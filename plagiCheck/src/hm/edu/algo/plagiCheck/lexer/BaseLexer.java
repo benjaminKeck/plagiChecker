@@ -89,4 +89,10 @@ public class BaseLexer implements ILexer{
 		return line;
 	}
 
+	@Override
+	public IToken getToken() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -13,4 +13,10 @@ public class FilterLexer implements ILexer {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public IToken getToken() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
