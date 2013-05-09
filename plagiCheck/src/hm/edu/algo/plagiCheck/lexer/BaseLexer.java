@@ -35,7 +35,9 @@ public class BaseLexer implements ILexer{
 		LexerState state = LexerState.READY;
 		LexerState oldState = LexerState.READY;
 		String line="";
-		
+		String digit = "";
+		boolean enoughDays;
+		boolean enoughMonth;
 		
 		try {
 			
@@ -51,7 +53,17 @@ public class BaseLexer implements ILexer{
 					line = check(state, oldState, line) + ch;
 					oldState = state;
 					break;
+				case INT:
+					line = check(state, oldState, line) + ch;
+					digit = checkInt(state, oldState, digit) + ch;
+					enoughDays = enoughIntForPossibleDate(digit);	
+					oldState = state;
+					break;
 				case COMMA:
+					line = check(state, oldState, line) + ch;
+					oldState = state;
+					break;
+				case COLON:
 					line = check(state, oldState, line) + ch;
 					oldState = state;
 					break;
@@ -75,6 +87,12 @@ public class BaseLexer implements ILexer{
 		else if(ch == ','){
 			return LexerState.COMMA;
 		}
+		else if(ch == '.'){
+			return LexerState.COLON;
+		}
+		else if(Character.isDigit(ch)){
+			return LexerState.INT;
+		}
 		else{
 			return LexerState.ID;
 		}
@@ -89,6 +107,20 @@ public class BaseLexer implements ILexer{
 		return line;
 	}
 
+	private String checkInt(LexerState newState, LexerState oldState, String digit){
+		if(oldState == LexerState.INT){
+			return digit;
+		}
+		return "";
+	}
+	
+	private boolean enoughIntForPossibleDate(String digit){
+		if(digit.length() == 2){
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public IToken getToken() {
 		// TODO Auto-generated method stub
