@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import hm.edu.algo.plagiCheck.kAux.*;
+import hm.edu.algo.plagiCheck.kAux.StringCoding;
 import hm.edu.algo.plagiCheck.lexer.*;
 import hm.edu.algo.plagiCheck.logging.Log;
 import hm.edu.algo.plagiCheck.triePackage.*;
@@ -37,6 +38,8 @@ public class PlagiChecker {
 		}
 		
 		baseLexer.start();
+		System.out.println(baseLexer.getIdTrie().toString());
+		System.out.println(baseLexer.getWsTrie().toString());
 		/*
 		ITrie trie = new Trie<String>();
 		ITokenizer tokenizer = new Tokenizer(args[0], trie, new StringCoding());
