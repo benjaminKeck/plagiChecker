@@ -4,12 +4,14 @@ import hm.edu.algo.plagiCheck.triePackage.ITrie;
 
 public interface ILexer {
 	public enum LexerState{
-		READY, ID, WHITESPACE, INT, COMMA;
+		READY, ID, WHITESPACE, INT, FLOAT, DATE, COMMA, EOF, UNKNOWN, SPECIALCHAR;
+	}
+	public class UnknownLexerState extends Exception{
+		public UnknownLexerState() {
+			super();
+		}
 	}
 	
-	public void start();
-	
-	public ITrie getIdTrie();
-	public ITrie getWsTrie();
-	public ITrie getIntTrie();
+	public LexerState getState();
+	public IToken getToken();
 }

@@ -11,25 +11,13 @@ public class FilterLexer implements ILexer {
 	}
 
 	@Override
-	public void start() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public ITrie getIdTrie() {
+	public LexerState getState() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ITrie getWsTrie() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ITrie getIntTrie() {
+	public IToken getToken() {
 		// TODO Auto-generated method stub
 		return null;
 	}
