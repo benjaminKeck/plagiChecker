@@ -40,7 +40,7 @@ public class PlagiChecker {
 		IToken token;
 		do{
 			token = baseLexer.getToken();
-			System.out.println(token.getType()+"_"+token.getValue());
+			System.out.println(token.getType()+"\t"+token.getValue());
 		}
 		while(baseLexer.getState() != LexerState.EOF);
 		
