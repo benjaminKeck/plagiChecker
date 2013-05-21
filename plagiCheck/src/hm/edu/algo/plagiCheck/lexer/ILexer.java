@@ -6,12 +6,14 @@ public interface ILexer {
 	public enum LexerState{
 		READY, ID, WHITESPACE, INT, FLOAT, DATE, COMMA, EOF, UNKNOWN, SPECIALCHAR;
 	}
+	public enum LexerInfoState{
+		READY, RUNNING, EOF;
+	}
 	public class UnknownLexerState extends Exception{
 		public UnknownLexerState() {
 			super();
 		}
 	}
-	
-	public LexerState getState();
+	public boolean isEOF();
 	public IToken getToken();
 }

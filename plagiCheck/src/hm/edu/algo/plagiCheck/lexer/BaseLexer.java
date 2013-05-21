@@ -20,11 +20,13 @@ public class BaseLexer implements ILexer{
 	BufferedReader bfr;
 	
 	LexerState state;
+	boolean isEOF;
 	int overlap=0;
 	
 	public BaseLexer(FileReader fr){
 
 		this.bfr = new BufferedReader(fr);
+		isEOF=false;
 	}
 
 	
@@ -56,7 +58,7 @@ public class BaseLexer implements ILexer{
 					oldState = state;
 				}
 			}
-			state = LexerState.EOF;
+			isEOF=true;
 		} 
 		catch (UnknownLexerState e){
 			Log.println(Log.URGENT, "Zeichen "+(char)chInt+" konnte nicht zugewiesen werden");
@@ -66,7 +68,7 @@ public class BaseLexer implements ILexer{
 
 			e.printStackTrace();
 		}
-		return new Token(state, "");
+		return new Token(state, line);
 	}
 	
 	private LexerState readState(int val) throws UnknownLexerState{
@@ -158,9 +160,11 @@ public class BaseLexer implements ILexer{
 		return false;
 	}
 
+
 	@Override
-	public LexerState getState() {
-		return state;
+	public boolean isEOF() {
+		return isEOF;
 	}
+
 
 }

@@ -42,7 +42,7 @@ public class PlagiChecker {
 			token = baseLexer.getToken();
 			System.out.println(token.getType()+"\t"+token.getValue());
 		}
-		while(baseLexer.getState() != LexerState.EOF);
+		while(!baseLexer.isEOF());
 		
 		/*baseLexer.start();
 		System.out.println(baseLexer.getIdTrie().toString());

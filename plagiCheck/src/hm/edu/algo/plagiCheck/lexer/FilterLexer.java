@@ -10,15 +10,19 @@ public class FilterLexer implements ILexer {
 		this.base = base;
 	}
 
-	@Override
-	public LexerState getState() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public IToken getToken() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+
+	@Override
+	public boolean isEOF() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
