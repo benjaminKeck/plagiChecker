@@ -71,6 +71,10 @@ public class BaseLexer implements ILexer{
 					line = check(state, oldState, line) + ch;
 					oldState = state;
 					break;
+				case SPECIAL_CHARACTER:
+					line = check(state, oldState, line) + ch;
+					oldState = state;
+					break;
 				}
 			}
 			
@@ -81,20 +85,25 @@ public class BaseLexer implements ILexer{
 		}
 	}
 	private LexerState getState(char ch){
-		if(ch==' '){
+		int charAscii = (int)ch;
+		
+		if(charAscii == 32){
 			return LexerState.WHITESPACE;
 		}
-		else if(ch == ','){
+		else if(charAscii == 44){
 			return LexerState.COMMA;
 		}
-		else if(ch == '.'){
+		else if(charAscii == 46){
 			return LexerState.COLON;
 		}
-		else if(Character.isDigit(ch)){
+		else if(charAscii >= 48 && charAscii <= 57){
 			return LexerState.INT;
 		}
-		else{
+		else if((charAscii >= 65 && charAscii <= 90) ^ (charAscii >= 97 && charAscii <= 122)){
 			return LexerState.ID;
+		}
+		else{
+			return LexerState.SPECIAL_CHARACTER;
 		}
 	}
 	private String check(LexerState newState, LexerState oldState, String line){

@@ -28,7 +28,7 @@ public class PlagiChecker {
 		
 		ILexer baseLexer;
 		try{
-			baseLexer = new BaseLexer(new FileReader(args[0]));
+			baseLexer = new BaseLexer(new FileReader("//Users//bernhardklauser//Desktop//test.txt"));
 			Log.println(Log.NORMAL, "File "+args[0]+" erfolgreich eingelesen");
 		}catch(FileNotFoundException e){
 			Log.println(Log.URGENT, "Datei "+args[0]+" konnte nicht gefunden werden");
