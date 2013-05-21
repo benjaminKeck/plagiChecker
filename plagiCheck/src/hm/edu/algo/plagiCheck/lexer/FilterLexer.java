@@ -11,18 +11,15 @@ public class FilterLexer implements ILexer {
 	}
 
 
+	@Override
+	public boolean isEOF() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 	@Override
 	public IToken getToken() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-
-
-	@Override
-	public boolean isEOF() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }
