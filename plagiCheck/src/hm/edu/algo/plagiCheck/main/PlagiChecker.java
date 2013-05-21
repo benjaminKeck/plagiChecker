@@ -41,6 +41,7 @@ public class PlagiChecker {
 		do{
 			token = baseLexer.getToken();
 			System.out.println(token.getType()+"\t"+token.getValue());
+			//Hier kann der Token in einen Trie gestopft werden...
 		}
 		while(!baseLexer.isEOF());
 		
