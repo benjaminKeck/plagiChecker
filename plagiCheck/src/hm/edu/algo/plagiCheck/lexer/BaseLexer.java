@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import hm.edu.algo.plagiCheck.kAux.IActionAtInsert;
 import hm.edu.algo.plagiCheck.kAux.StringCoding;
-import hm.edu.algo.plagiCheck.lexer.IToken.TokenType;
 import hm.edu.algo.plagiCheck.logging.Log;
 import hm.edu.algo.plagiCheck.triePackage.ITrie;
 import hm.edu.algo.plagiCheck.triePackage.Trie;

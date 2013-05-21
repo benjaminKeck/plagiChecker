@@ -21,6 +21,8 @@ public class PlagiChecker {
 	public static void main(String[] args){
 		
 		final int traceLevel = Log.URGENT;
+		ITrie idTrie = new Trie<String>();
+		IActionAtInsert idAction = new StringCoding();
 		
 		//Wenn nicht zwei Textfiles als Parameter angegeben werden.
 		if(args.length!=2){
@@ -40,10 +42,15 @@ public class PlagiChecker {
 		IToken token;
 		do{
 			token = baseLexer.getToken();
-			System.out.println(token.getType()+"\t"+token.getValue());
+			//System.out.println(token.getType()+"\t"+token.getValue());
 			//Hier kann der Token in einen Trie gestopft werden...
+			if(token.getType().equals(LexerState.ID)){
+				idTrie.put(token.getValue(), idAction);
+			}
 		}
 		while(!baseLexer.isEOF());
+		
+		System.out.println(idTrie.toString());
 		
 		/*baseLexer.start();
 		System.out.println(baseLexer.getIdTrie().toString());

@@ -10,10 +10,6 @@ public interface ILexer {
 		//READY, ID, WHITESPACE, INT, COLON, COMMA, SPECIAL_CHARACTER, ERROR;
 
 	}
-
-	public enum LexerInfoState{
-		READY, RUNNING, EOF;
-	}
 	public class UnknownLexerState extends Exception{
 		public UnknownLexerState() {
 			super();

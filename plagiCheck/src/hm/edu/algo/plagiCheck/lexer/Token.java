@@ -21,21 +21,5 @@ public class Token implements IToken{
 	public String getValue() {
 		return value;
 	}
-
-
-	
-	private int relativeCode;
-	
-	private TokenClass classCode;
-	
-	// Getter für den Relativcode des Token
-	public int getRelativeCode(){
-		return relativeCode;
-	}
-	@Override
-	public TokenClass getClassCode() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 }
