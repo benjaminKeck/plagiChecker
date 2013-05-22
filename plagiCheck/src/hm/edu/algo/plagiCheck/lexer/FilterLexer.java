@@ -1,5 +1,7 @@
 package hm.edu.algo.plagiCheck.lexer;
 
+import hm.edu.algo.plagiCheck.triePackage.ITrie;
+
 public class FilterLexer implements ILexer {
 
 	private ILexer base;
@@ -8,10 +10,11 @@ public class FilterLexer implements ILexer {
 		this.base = base;
 	}
 
+
 	@Override
-	public void start() {
+	public boolean isEOF() {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 	@Override
