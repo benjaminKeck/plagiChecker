@@ -88,6 +88,7 @@ public class BaseLexer implements ILexer{
 		}
 		
 		throw new UnknownLexerState(val+" konnte keinem LexerState zugewiesen werden");
+
 		
 	}
 	
