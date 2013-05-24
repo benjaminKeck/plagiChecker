@@ -22,14 +22,13 @@ public class TrieNode implements ITrieNode{
 	 * 
 	 * @param parent
 	 * @param value
-	 * Parameter fuerr Kante
+	 * Parameter fuer Kante
 	 */
 	public TrieNode(ITrieNode parent, Object value){
 		this.parent = parent;
 		this.partOfKeyToTrieNode = new TreeMap<Comparable, ITrieNode>();
 		this.value=value;
-		/**Kante zu this müssen das noch iwie implementieren*/
-		//this.partOfKey=partOfKey;
+		
 	}
 
 	/**
@@ -39,7 +38,7 @@ public class TrieNode implements ITrieNode{
 	 * Fuegt den Inhalt des Iterators in die verkettete Liste ein.
 	 */
 	@Override
-	public ITrieReference recursiveInsert(Iterator it, IActionAtInsert codingAction/*, IActionAtInsert countingAction*/) {
+	public ITrieReference recursiveInsert(Iterator it, IActionAtInsert codingAction) {
 
 		if(it.hasNext()){
 			
@@ -49,7 +48,9 @@ public class TrieNode implements ITrieNode{
 				partOfKeyToTrieNode.put(key, new TrieNode(this, null));
 				//System.out.println("Lege "+(Character)key+" mit Value "+null);
 			}
-			return partOfKeyToTrieNode.get(key).recursiveInsert(it, codingAction);
+			ITrieReference ref = partOfKeyToTrieNode.get(key).recursiveInsert(it, codingAction);
+			ref.incrementDepth();
+			return ref;
 		}
 		//Wenn der Value gefunden wurde
 		if(this.value!=null){

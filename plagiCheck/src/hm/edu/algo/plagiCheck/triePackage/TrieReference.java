@@ -5,7 +5,7 @@ public class TrieReference implements ITrieReference{
 	// Attribute
 	private final Object value;
 	
-	private final int depth;
+	private int depth;
 	
 	private final boolean found;
 	
@@ -25,5 +25,15 @@ public class TrieReference implements ITrieReference{
 		this.value = value;
 		this.depth = depth;
 		this.found = found;
+	}
+
+	@Override
+	public void incrementDepth() {
+		this.depth++;
+	}
+
+	@Override
+	public int getDepth() {
+		return this.depth;
 	}
 }

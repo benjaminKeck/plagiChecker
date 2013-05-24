@@ -35,8 +35,8 @@ public class Trie<K extends Comparable<K>> implements ITrie<K>{
 	@Override
 	public Object put(String key, IActionAtInsert action) {
 		Iterator it = new CharIterator(key);
-		root.recursiveInsert(it, action);
-		return null;
+		
+		return root.recursiveInsert(it, action);
 	}
 	
 	@Override

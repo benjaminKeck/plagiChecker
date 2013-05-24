@@ -77,6 +77,9 @@ public class BaseLexer implements ILexer{
 		else if(isComma(val)){
 			return LexerState.COMMA;
 		}
+		/*else if(isColon(val)){
+			return LexerState.COLON;
+		}*/
 		else if(isWhiteSpace(val)){
 			return LexerState.WHITESPACE;
 		}
@@ -129,12 +132,25 @@ public class BaseLexer implements ILexer{
 		//Kleinbuchstaben
 		if(val>=97 && val<=122)
 			return true;
+		//Á, Ä... ohne Multiplikation(x)
+		if(val>=1932 && val<=223 && val!=215)
+			return true;
+		//á, ä usw... ohne Division (/)
+		if(val>=224 && val<=255 && val!=247)
+			return true;
+		//
 		return false;
 	}
 	
 	private boolean isComma(int val){
-		//Komma oder Punkt
+		//Komma   oder Punkt
 		if(val==44 || val==46)
+			return true;
+		return false;
+	}
+	private boolean isColon(int val){
+		//Punkt
+		if(val==46)
 			return true;
 		return false;
 	}
@@ -156,6 +172,8 @@ public class BaseLexer implements ILexer{
 		if(val>=91 && val<=96)
 			return true;
 		if(val>=123 && val<=126)
+			return true;
+		if(val>=128 && val<=191)
 			return true;
 		return false;
 	}
