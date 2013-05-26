@@ -14,9 +14,10 @@ import java.util.TreeMap;
  */
 public class TrieNode implements ITrieNode{
 	private Map<Comparable, ITrieNode> partOfKeyToTrieNode;
-	private Object value;
+	private Object counting;
+	private Object code;
 	private ITrieNode parent;
-	private ITrieNode partOfKey;//Kante zu this
+	private ITrieNode partOfKey;
 	
 	/**
 	 * 
@@ -27,8 +28,8 @@ public class TrieNode implements ITrieNode{
 	public TrieNode(ITrieNode parent, Object value){
 		this.parent = parent;
 		this.partOfKeyToTrieNode = new TreeMap<Comparable, ITrieNode>();
-		this.value=value;
-		
+		this.code=value;
+		this.counting = new Integer(0);
 	}
 
 	/**
@@ -38,7 +39,7 @@ public class TrieNode implements ITrieNode{
 	 * Fuegt den Inhalt des Iterators in die verkettete Liste ein.
 	 */
 	@Override
-	public ITrieReference recursiveInsert(Iterator it, IActionAtInsert codingAction) {
+	public ITrieReference recursiveInsert(Iterator it, IActionAtInsert codingAction, IActionAtInsert countingAction) {
 
 		if(it.hasNext()){
 			
@@ -48,19 +49,21 @@ public class TrieNode implements ITrieNode{
 				partOfKeyToTrieNode.put(key, new TrieNode(this, null));
 				//System.out.println("Lege "+(Character)key+" mit Value "+null);
 			}
-			ITrieReference ref = partOfKeyToTrieNode.get(key).recursiveInsert(it, codingAction);
-			ref.incrementDepth();
-			return ref;
+			//ITrieReference ref = partOfKeyToTrieNode.get(key).recursiveInsert(it, codingAction, countingAction);
+			//ref.incrementDepth();
+			//return ref;
+			return partOfKeyToTrieNode.get(key).recursiveInsert(it, codingAction, countingAction);
 		}
-		//Wenn der Value gefunden wurde
-		if(this.value!=null){
-			this.value=codingAction.actionInCaseOfFoundKey(this.value);
-			return new TrieReference(value, 1, true);
+		//Wenn das Wort schon gespeichert war
+		if(this.code!=null){
+			code=codingAction.actionInCaseOfFoundKey(code);
+			counting = countingAction.actionInCaseOfFoundKey(counting);
+			return new TrieReference(code, counting, 1, true);
 		}
 		else{
-			this.value=codingAction.actionInCaseOfNotFoundKey();
-			
-			return new TrieReference(value, 1, false);
+			code=codingAction.actionInCaseOfNotFoundKey();
+			counting = countingAction.actionInCaseOfNotFoundKey();
+			return new TrieReference(code, counting,  1, false);
 		}
 		
 	}
@@ -99,7 +102,7 @@ public class TrieNode implements ITrieNode{
 		return sum;
 	}
 	public Object getValue(){
-		return value;
+		return code;
 	}
 
 }

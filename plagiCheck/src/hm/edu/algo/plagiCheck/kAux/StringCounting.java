@@ -9,8 +9,7 @@ public class StringCounting implements IActionAtInsert{
 	}
 	@Override
 	public Object actionInCaseOfFoundKey(Object foundValue) {
-		// TODO Auto-generated method stub
-		return null;
+		return ++count;
 	}
 
 	@Override

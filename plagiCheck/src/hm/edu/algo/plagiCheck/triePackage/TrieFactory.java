@@ -5,7 +5,7 @@ public class TrieFactory implements ITrieFactory{
 	@Override
 	public ITrie createTrie() {
 		
-		return new Trie();
+		return null;
 	}
 
 }

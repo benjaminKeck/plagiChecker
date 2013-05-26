@@ -2,6 +2,9 @@ package hm.edu.algo.plagiCheck.main;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 
 import hm.edu.algo.plagiCheck.kAux.*;
 import hm.edu.algo.plagiCheck.kAux.StringCoding;
@@ -21,13 +24,11 @@ public class PlagiChecker {
 	public static void main(String[] args){
 		
 		final int traceLevel = Log.URGENT;
-		ITrie idTrie = new Trie<String>();
-		ITrie intTrie = new Trie<Integer>();
-		ITrie dateTrie = new Trie<String>();
-		
-		IActionAtInsert idAction = new StringCoding();
-		IActionAtInsert intAction = new StringCoding();
-		IActionAtInsert dateAction = new StringCoding();
+		ITrie idTrie = new Trie<String>(new StringCoding(), new StringCounting());
+		ITrie intTrie = new Trie<Integer>(new StringCoding(), new StringCounting());
+		ITrie dateTrie = new Trie<String>(new StringCoding(), new StringCounting());
+		HashMap<Integer, Integer> wordMap = new HashMap<Integer, Integer>();
+		HashMap<Integer, String> index = new HashMap<Integer, String>();
 		
 		
 		//Wenn nicht zwei Textfiles als Parameter angegeben werden.
@@ -48,16 +49,23 @@ public class PlagiChecker {
 		IToken token;
 		do{
 			token = baseLexer.getToken();
-			System.out.println(token.getType()+"\t"+token.getValue());
+			//System.out.println(token.getType()+"\t"+token.getValue());
 			//Hier kann der Token in einen Trie gestopft werden...
 			if(token.getType().equals(LexerState.ID)){
-				idTrie.put(token.getValue(), idAction);
+				ITrieReference ref = (TrieReference)idTrie.insert(new CharIterator(token.getValue()));
+				System.out.println("'"+ref.getCode()+"' wurde an Stelle "+ref.getPosition()+" eingefuegt");
+				wordMap.put((Integer)ref.getPosition(), (Integer)ref.getCode());
+				index.put((Integer)ref.getCode(), token.getValue());
 			}
 		}
 		while(!baseLexer.isEOF());
 		
-		System.out.println(idTrie.toString());
+		//System.out.println(idTrie.toString());
 		
+		Iterator it = wordMap.values().iterator();
+		while(it.hasNext()){
+			System.out.println("it: "+index.get((Integer)it.next()));
+		}
 		/*baseLexer.start();
 		System.out.println(baseLexer.getIdTrie().toString());
 		System.out.println(baseLexer.getWsTrie().toString());

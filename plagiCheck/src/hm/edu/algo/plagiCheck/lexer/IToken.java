@@ -7,4 +7,5 @@ public interface IToken {
 
 	public LexerState getType();
 	public String getValue();
+	
 }

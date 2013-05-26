@@ -3,7 +3,8 @@ package hm.edu.algo.plagiCheck.triePackage;
 public class TrieReference implements ITrieReference{
 
 	// Attribute
-	private final Object value;
+	private final Object stringCoding;
+	private final Object stringCounting;
 	
 	private int depth;
 	
@@ -11,18 +12,22 @@ public class TrieReference implements ITrieReference{
 	
 	@Override
 	public boolean getFound() {
-		// TODO Auto-generated method stub
-		return false;
+		return found;
 	}
 
 	@Override
-	public Object getValue() {
-		// TODO Auto-generated method stub
-		return null;
+	public Object getCode() {
+		return this.stringCoding;
+	}
+	
+	@Override
+	public Object getPosition() {
+		return this.stringCounting;
 	}
 
-	TrieReference (Object value, int depth, boolean found){
-		this.value = value;
+	TrieReference (Object coding, Object counting, int depth, boolean found){
+		this.stringCoding = coding;
+		this.stringCounting=counting;
 		this.depth = depth;
 		this.found = found;
 	}

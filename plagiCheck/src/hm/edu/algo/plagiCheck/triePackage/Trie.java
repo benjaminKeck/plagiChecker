@@ -14,8 +14,14 @@ import java.util.Iterator;
  */
 public class Trie<K extends Comparable<K>> implements ITrie<K>{
 	private ITrieNode root;
+	private IActionAtInsert codingAction;
+	private IActionAtInsert countingAction;
 	
-	public Trie(){
+	public Trie(IActionAtInsert codingAction, IActionAtInsert countingAction){
+		
+		this.codingAction = codingAction;
+		this.countingAction = countingAction;
+		
 		this.root = new TrieNode(null, null);
 	}
 	
@@ -36,7 +42,7 @@ public class Trie<K extends Comparable<K>> implements ITrie<K>{
 	public Object put(String key, IActionAtInsert action) {
 		Iterator it = new CharIterator(key);
 		
-		return root.recursiveInsert(it, action);
+		return null;
 	}
 	
 	@Override
@@ -54,6 +60,11 @@ public class Trie<K extends Comparable<K>> implements ITrie<K>{
 	public String toString(){
 		root.showValues(0);
 		return "";
+	}
+
+	@Override
+	public Object insert(Iterator i/*, IActionAtInsert action*/) {
+		return root.recursiveInsert(i, codingAction, countingAction);
 	}
 
 }
