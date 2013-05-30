@@ -53,8 +53,7 @@ public class PlagiChecker {
 			//Hier kann der Token in einen Trie gestopft werden...
 			if(token.getType().equals(LexerState.ID)){
 				ITrieReference ref = (TrieReference)idTrie.insert(new CharIterator(token.getValue()));
-				// TODO Kommentierung entfernen!!
-				// System.out.println("'"+ref.getCode()+"' wurde an Stelle "+ref.getPosition()+" eingefuegt");
+				System.out.println("'"+ref.getCode()+"' wurde an Stelle "+ref.getPosition()+" eingefuegt");
 				wordMap.put((Integer)ref.getPosition(), (Integer)ref.getCode());
 				index.put((Integer)ref.getCode(), token.getValue());
 			}

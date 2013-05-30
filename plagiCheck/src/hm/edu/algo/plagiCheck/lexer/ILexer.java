@@ -16,6 +16,7 @@ public interface ILexer {
 
 	public IToken getToken();
 	
+	String decode(IToken tk);
 	
 	/**
 	 * Exception f�r einen nicht gefundenen LexerState.
