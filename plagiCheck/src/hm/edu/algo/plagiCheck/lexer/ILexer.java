@@ -6,7 +6,7 @@ public interface ILexer {
 	public enum LexerState{
 
 
-		READY, ID, WHITESPACE, INT, FLOAT, DATE, COMMA, COLON, SPECIALCHAR;
+		READY, ID, WHITESPACE, INT, FLOAT, FLOAT_TO_DATE, DATE, COMMA, COLON, SPECIALCHAR;
 
 		//READY, ID, WHITESPACE, INT, COLON, COMMA, SPECIAL_CHARACTER, ERROR;
 
@@ -18,7 +18,7 @@ public interface ILexer {
 	
 	
 	/**
-	 * Exception für einen nicht gefundenen LexerState.
+	 * Exception fï¿½r einen nicht gefundenen LexerState.
 	 * Also falls ein Zeichen keinem State zugewiesen kann.
 	 * @author keckes
 	 *
