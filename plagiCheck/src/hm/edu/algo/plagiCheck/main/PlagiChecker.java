@@ -39,7 +39,7 @@ public class PlagiChecker {
 		
 		ILexer baseLexer;
 		try{
-			baseLexer = new BaseLexer(new FileReader(args[0]));
+			baseLexer = new BaseLexer(new FileReader("/Users/bernhardklauser/Desktop/test.txt"));
 			Log.println(Log.NORMAL, "File "+args[0]+" erfolgreich eingelesen");
 		}catch(FileNotFoundException e){
 			Log.println(Log.URGENT, "Datei "+args[0]+" konnte nicht gefunden werden");
@@ -49,7 +49,7 @@ public class PlagiChecker {
 		IToken token;
 		do{
 			token = baseLexer.getToken();
-			//System.out.println(token.getType()+"\t"+token.getValue());
+			System.out.println(token.getType()+"\t"+token.getValue());
 			//Hier kann der Token in einen Trie gestopft werden...
 			if(token.getType().equals(LexerState.ID)){
 				ITrieReference ref = (TrieReference)idTrie.insert(new CharIterator(token.getValue()));

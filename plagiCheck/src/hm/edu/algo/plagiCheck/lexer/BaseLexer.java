@@ -36,7 +36,7 @@ public class BaseLexer implements ILexer{
 		String line ="";
 		try {
 			/*
-			 * Überhang vom letzen Methodenaufruf.
+			 * ï¿½berhang vom letzen Methodenaufruf.
 			 */
 			if(overlap!=0){
 				state = readState(overlap);
@@ -113,10 +113,10 @@ public class BaseLexer implements ILexer{
 			return false;
 		}
 		else if(oldState==LexerState.FLOAT && state==LexerState.COMMA){
-			state=LexerState.DATE;
+			state=LexerState.FLOAT_TO_DATE;
 			return false;
 		}
-		else if(oldState==LexerState.DATE && state==LexerState.INT){
+		else if(oldState==LexerState.FLOAT_TO_DATE && state==LexerState.INT){
 			state=LexerState.DATE;
 			return false;
 		}
@@ -126,16 +126,16 @@ public class BaseLexer implements ILexer{
 			return false;
 	}
 	private boolean isLetter(int val){
-		//Großbuchstaben
+		//Groï¿½buchstaben
 		if(val>=65 && val <=90)
 			return true;
 		//Kleinbuchstaben
 		if(val>=97 && val<=122)
 			return true;
-		//Á, Ä... ohne Multiplikation(x)
+		//ï¿½, ï¿½... ohne Multiplikation(x)
 		if(val>=1932 && val<=223 && val!=215)
 			return true;
-		//á, ä usw... ohne Division (/)
+		//ï¿½, ï¿½ usw... ohne Division (/)
 		if(val>=224 && val<=255 && val!=247)
 			return true;
 		//
