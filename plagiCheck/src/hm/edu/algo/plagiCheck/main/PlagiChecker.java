@@ -53,19 +53,22 @@ public class PlagiChecker {
 			//Hier kann der Token in einen Trie gestopft werden...
 			if(token.getType().equals(LexerState.ID)){
 				ITrieReference ref = (TrieReference)idTrie.insert(new CharIterator(token.getValue()));
-				System.out.println("'"+ref.getCode()+"' wurde an Stelle "+ref.getPosition()+" eingefuegt");
+				//System.out.println("'"+ref.getCode()+"' wurde an Stelle "+ref.getPosition()+" eingefuegt");
 				wordMap.put((Integer)ref.getPosition(), (Integer)ref.getCode());
 				index.put((Integer)ref.getCode(), token.getValue());
 			}
 		}
 		while(!baseLexer.isEOF());
+		System.out.println("In File1 sind "+index.size()+" verschiedene Woerter");
 		
 		//System.out.println(idTrie.toString());
 		
-		Iterator it = wordMap.values().iterator();
-		while(it.hasNext()){
-			System.out.println("it: "+index.get((Integer)it.next()));
-		}
+//		Iterator it = wordMap.values().iterator();
+//		while(it.hasNext()){
+//			System.out.println("it: "+index.get((Integer)it.next()));
+//		}
+		
+		
 		/*baseLexer.start();
 		System.out.println(baseLexer.getIdTrie().toString());
 		System.out.println(baseLexer.getWsTrie().toString());

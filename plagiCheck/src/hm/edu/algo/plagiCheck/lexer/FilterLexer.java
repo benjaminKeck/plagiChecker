@@ -22,4 +22,10 @@ public class FilterLexer implements ILexer {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String decode(IToken tk) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

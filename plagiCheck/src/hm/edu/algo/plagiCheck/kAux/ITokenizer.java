@@ -1,6 +1,5 @@
 package hm.edu.algo.plagiCheck.kAux;
 
-import hm.edu.algo.plagiCheck.triePackage.ITrie;
 
 public interface ITokenizer {
 	

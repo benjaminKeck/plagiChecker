@@ -2,7 +2,7 @@ package hm.edu.algo.plagiCheck.kAux;
 
 public class StringCounting implements IActionAtInsert{
 
-	private static int count;
+	private int count;
 	
 	public StringCounting(){
 		count=0;

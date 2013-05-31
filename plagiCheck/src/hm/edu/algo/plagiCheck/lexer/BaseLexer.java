@@ -184,5 +184,9 @@ public class BaseLexer implements ILexer{
 		return isEOF;
 	}
 
-
+	@Override
+	public String decode(IToken tk) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
