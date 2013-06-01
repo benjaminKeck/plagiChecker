@@ -1,5 +1,9 @@
 package hm.edu.algo.plagiCheck.lexer;
 
+import java.io.FileReader;
+import java.util.ArrayList;
+
+import hm.edu.algo.plagiCheck.kAux.IIndexReference;
 import hm.edu.algo.plagiCheck.triePackage.ITrie;
 
 public class FilterLexer implements ILexer {
@@ -25,6 +29,20 @@ public class FilterLexer implements ILexer {
 
 	@Override
 	public String decode(IToken tk) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void setFile(FileReader fr) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public ArrayList<IIndexReference> read() {
 		// TODO Auto-generated method stub
 		return null;
 	}

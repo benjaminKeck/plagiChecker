@@ -1,5 +1,9 @@
 package hm.edu.algo.plagiCheck.lexer;
 
+import java.io.FileReader;
+import java.util.ArrayList;
+
+import hm.edu.algo.plagiCheck.kAux.IIndexReference;
 import hm.edu.algo.plagiCheck.triePackage.ITrie;
 
 public interface ILexer {
@@ -11,7 +15,8 @@ public interface ILexer {
 		//READY, ID, WHITESPACE, INT, COLON, COMMA, SPECIAL_CHARACTER, ERROR;
 
 	}
-
+	public void setFile(FileReader fr);
+	public ArrayList<IIndexReference> read();
 	public boolean isEOF();
 
 	public IToken getToken();

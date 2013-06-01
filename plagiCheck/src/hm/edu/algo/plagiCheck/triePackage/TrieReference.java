@@ -16,7 +16,7 @@ public class TrieReference implements ITrieReference{
 	}
 
 	@Override
-	public Object getCode() {
+	public Object getStringCode() {
 		return this.stringCoding;
 	}
 	
