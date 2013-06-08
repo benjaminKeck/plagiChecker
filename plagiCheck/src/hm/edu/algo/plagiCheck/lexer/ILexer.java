@@ -2,6 +2,7 @@ package hm.edu.algo.plagiCheck.lexer;
 
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import hm.edu.algo.plagiCheck.kAux.IIndexReference;
 import hm.edu.algo.plagiCheck.triePackage.ITrie;
@@ -21,8 +22,9 @@ public interface ILexer {
 
 	public IToken getToken();
 	
-	String decode(IToken tk);
+	public String decode(IIndexReference ref);
 	
+	public String showTrie(LexerState state);
 	/**
 	 * Exception f�r einen nicht gefundenen LexerState.
 	 * Also falls ein Zeichen keinem State zugewiesen kann.

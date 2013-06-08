@@ -6,4 +6,5 @@ public interface ITrieReference {
 	Object getPosition();
 	void incrementDepth();
 	int getDepth();
+	ITrieNode getNode();
 }

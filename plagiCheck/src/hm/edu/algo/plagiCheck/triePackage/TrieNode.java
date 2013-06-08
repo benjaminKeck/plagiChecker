@@ -3,6 +3,7 @@ package hm.edu.algo.plagiCheck.triePackage;
 import hm.edu.algo.plagiCheck.kAux.IActionAtInsert;
 import hm.edu.algo.plagiCheck.kAux.StringCounting;
 
+import java.io.CharConversionException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -18,6 +19,7 @@ public class TrieNode implements ITrieNode{
 	private Object code;
 	private ITrieNode parent;
 	private ITrieNode partOfKey;
+	private Character charValue;
 	
 	/**
 	 * 
@@ -28,7 +30,8 @@ public class TrieNode implements ITrieNode{
 	public TrieNode(ITrieNode parent, Object value){
 		this.parent = parent;
 		this.partOfKeyToTrieNode = new TreeMap<Comparable, ITrieNode>();
-		this.code=value;
+		this.code=null;
+		charValue = (Character)value;
 		this.counting = new Integer(0);
 	}
 
@@ -43,10 +46,12 @@ public class TrieNode implements ITrieNode{
 
 		if(it.hasNext()){
 			
+			
 			Comparable key = (Comparable)it.next();
+			//charValue = (Character)key;
 			
 			if(!partOfKeyToTrieNode.containsKey(key)){
-				partOfKeyToTrieNode.put(key, new TrieNode(this, null));
+				partOfKeyToTrieNode.put(key, new TrieNode(this, key));
 				//System.out.println("Lege "+(Character)key+" mit Value "+null);
 			}
 			//ITrieReference ref = partOfKeyToTrieNode.get(key).recursiveInsert(it, codingAction, countingAction);
@@ -54,16 +59,17 @@ public class TrieNode implements ITrieNode{
 			//return ref;
 			return partOfKeyToTrieNode.get(key).recursiveInsert(it, codingAction, countingAction);
 		}
+		
 		//Wenn das Wort schon gespeichert war
 		if(this.code!=null){
 			code=codingAction.actionInCaseOfFoundKey(code);
 			counting = countingAction.actionInCaseOfFoundKey(counting);
-			return new TrieReference(code, counting, 1, true);
+			return new TrieReference(this, code, counting, 1, true);
 		}
 		else{
 			code=codingAction.actionInCaseOfNotFoundKey();
 			counting = countingAction.actionInCaseOfNotFoundKey();
-			return new TrieReference(code, counting,  1, false);
+			return new TrieReference(this, code, counting,  1, false);
 		}
 		
 	}
@@ -77,10 +83,10 @@ public class TrieNode implements ITrieNode{
 		Iterator kante = partOfKeyToTrieNode.keySet().iterator();
 		
 		while(kante.hasNext()){
-			Object nextKante = kante.next();
-			Character kName = (Character)nextKante;
+			//Object nextKante = kante.next();
+			Character kName = (Character)kante.next();
 			//System.out.print("("+(Integer)value+")");
-			System.out.print(einruecken(depth) + kName);
+			System.out.print(einruecken(depth) + kName/* + "-" + partOfKeyToTrieNode.get(kName).getCharValue()*/);
 			if(partOfKeyToTrieNode.get(kName).getValue()!=null)
 				System.out.println(" -> "+(Integer)partOfKeyToTrieNode.get(kName).getValue());
 			else
@@ -103,6 +109,16 @@ public class TrieNode implements ITrieNode{
 	}
 	public Object getValue(){
 		return code;
+	}
+
+	@Override
+	public String getStringReference(String text) {
+		
+		if(parent!=null){
+			return parent.getStringReference(charValue+text);
+		}
+		else
+			return text;
 	}
 
 }

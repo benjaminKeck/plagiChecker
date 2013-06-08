@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import hm.edu.algo.plagiCheck.kAux.CharIterator;
@@ -28,7 +30,6 @@ public class BaseLexer implements ILexer{
 	private ITrie idTrie = new Trie<String>(new StringCoding(), new StringCounting());
 	private ITrie intTrie = new Trie<Integer>(new StringCoding(), new StringCounting());
 	private ITrie dateTrie = new Trie<Integer>(new StringCoding(), new StringCounting());
-	
 	
 	BufferedReader bfr;
 	
@@ -74,8 +75,10 @@ public class BaseLexer implements ILexer{
 				ref = (TrieReference)dateTrie.insert(new CharIterator(token.getValue()));
 			}
 			
-			if(ref!=null)
-				index.add(new IndexReference(token.getType(), (Integer)ref.getStringCode()));
+			if(ref!=null){
+				IIndexReference indexRef = new IndexReference(token.getType(), (Integer)ref.getStringCode());
+				index.add(indexRef);
+			}
 		}
 		while(!isEOF());
 		
@@ -240,8 +243,21 @@ public class BaseLexer implements ILexer{
 
 
 	@Override
-	public String decode(IToken tk) {
-		// TODO Auto-generated method stub
+	public String decode(IIndexReference ref) {
+		
+		switch(ref.getClassCode()){
+			case ID: 	return (String)idTrie.get(ref.getStringCode());
+			case INT: 	return (String)intTrie.get(ref.getStringCode());
+			case DATE:	return (String)dateTrie.get(ref.getStringCode());
+			default: throw new IllegalArgumentException();
+		}
+	
+	}
+
+	@Override
+	public String showTrie(LexerState state) {
+		if(state.equals(LexerState.ID))
+			return idTrie.toString();
 		return null;
 	}
 

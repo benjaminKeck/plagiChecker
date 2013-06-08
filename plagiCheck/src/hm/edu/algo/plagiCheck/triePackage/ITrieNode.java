@@ -8,4 +8,6 @@ public interface ITrieNode {
 	public ITrieReference recursiveInsert(Iterator it, IActionAtInsert codingAction, IActionAtInsert countingAction);
 	public void showValues(int depth);
 	public Object getValue();
+	public String getStringReference(String text);
+	
 }
