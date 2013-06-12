@@ -58,12 +58,13 @@ public class PlagiChecker {
 		index2 = baseLexer.read();
 		
 		
-		Iterator it = index2.iterator();
+		Iterator it = index1.iterator();
 		while(it.hasNext()){
 			IIndexReference ref = (IndexReference)it.next();
-			System.out.println(ref.getClassCode()+": "+ref.getStringCode());
+			System.out.println(ref.getClassCode()+": "+ref.getStringCode()+" "+baseLexer.decode(ref));
 		}
 		
+		Scorer scorer = new Scorer(index1, index2);	
 		
 		
 	}
