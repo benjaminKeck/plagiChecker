@@ -3,12 +3,21 @@ package hm.edu.algo.plagiCheck.lexer;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
+import hm.edu.algo.plagiCheck.kAux.CharIterator;
 import hm.edu.algo.plagiCheck.kAux.IActionAtInsert;
+import hm.edu.algo.plagiCheck.kAux.IIndexReference;
+import hm.edu.algo.plagiCheck.kAux.IndexReference;
 import hm.edu.algo.plagiCheck.kAux.StringCoding;
+import hm.edu.algo.plagiCheck.kAux.StringCounting;
+import hm.edu.algo.plagiCheck.lexer.ILexer.LexerState;
 import hm.edu.algo.plagiCheck.logging.Log;
 import hm.edu.algo.plagiCheck.triePackage.ITrie;
+import hm.edu.algo.plagiCheck.triePackage.ITrieReference;
 import hm.edu.algo.plagiCheck.triePackage.Trie;
+import hm.edu.algo.plagiCheck.triePackage.TrieReference;
 
 /**
  * @author Benjamin Keckes
@@ -16,16 +25,61 @@ import hm.edu.algo.plagiCheck.triePackage.Trie;
  */
 public class BaseLexer implements ILexer{
 
+	private ITrie idTrie = new Trie<String>(new StringCoding(), new StringCounting());
+	private ITrie intTrie = new Trie<Integer>(new StringCoding(), new StringCounting());
+	private ITrie dateTrie = new Trie<Integer>(new StringCoding(), new StringCounting());
+	
+	
 	BufferedReader bfr;
 	
 	LexerState state;
 	boolean isEOF;
 	int overlap=0;
 	
-	public BaseLexer(FileReader fr){
-
+//	public BaseLexer(FileReader fr){
+//
+//		this.bfr = new BufferedReader(fr);
+//		isEOF=false;
+//	}
+	public BaseLexer(){
+		
+	}
+	public void setFile(FileReader fr){
 		this.bfr = new BufferedReader(fr);
 		isEOF=false;
+		
+		//read();
+		
+	}
+	
+	public ArrayList<IIndexReference> read(){
+		
+		ArrayList<IIndexReference> index = new ArrayList<IIndexReference>();
+		IToken token;
+		do{
+			token = getToken();
+			ITrieReference ref=null;		
+			
+			
+			//Hier kann der Token in einen Trie gestopft werden...
+			
+			//	ID
+			if(token.getType().equals(LexerState.ID)){
+				ref = (TrieReference)idTrie.insert(new CharIterator(token.getValue()));
+			}
+			else if(token.getType().equals(LexerState.INT)){
+				ref = (TrieReference)intTrie.insert(new CharIterator(token.getValue()));
+			}
+			else if(token.getType().equals(LexerState.DATE)){
+				ref = (TrieReference)dateTrie.insert(new CharIterator(token.getValue()));
+			}
+			
+			if(ref!=null)
+				index.add(new IndexReference(token.getType(), (Integer)ref.getStringCode()));
+		}
+		while(!isEOF());
+		
+		return index;
 	}
 
 	

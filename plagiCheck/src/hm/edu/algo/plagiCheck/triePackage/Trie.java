@@ -4,6 +4,8 @@ import hm.edu.algo.plagiCheck.kAux.CharIterator;
 import hm.edu.algo.plagiCheck.kAux.IActionAtInsert;
 import hm.edu.algo.plagiCheck.kAux.StringCoding;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -16,6 +18,7 @@ public class Trie<K extends Comparable<K>> implements ITrie<K>{
 	private ITrieNode root;
 	private IActionAtInsert codingAction;
 	private IActionAtInsert countingAction;
+	private HashMap<Integer, ITrieNode> leaves = new HashMap<Integer, ITrieNode>();
 	
 	public Trie(IActionAtInsert codingAction, IActionAtInsert countingAction){
 		
@@ -27,7 +30,7 @@ public class Trie<K extends Comparable<K>> implements ITrie<K>{
 	
 	@Override
 	public Object put(K key, Object value) {
-		Object oldVal = get(key);
+		//Object oldVal = get(key);
 		
 		/*
 		 * Key ist ein Iterator 
@@ -35,7 +38,7 @@ public class Trie<K extends Comparable<K>> implements ITrie<K>{
 		if(key instanceof Iterator){
 			
 		}
-		return oldVal;
+		return null;
 	}
 
 	@Override
@@ -46,9 +49,8 @@ public class Trie<K extends Comparable<K>> implements ITrie<K>{
 	}
 	
 	@Override
-	public Object get(K key) {
-		// TODO Auto-generated method stub
-		return null;
+	public Object get(int code) {
+		return leaves.get(code).getStringReference("");
 	}
 
 	@Override
@@ -64,7 +66,11 @@ public class Trie<K extends Comparable<K>> implements ITrie<K>{
 
 	@Override
 	public Object insert(Iterator i/*, IActionAtInsert action*/) {
-		return root.recursiveInsert(i, codingAction, countingAction);
+		ITrieReference ref = root.recursiveInsert(i, codingAction, countingAction);
+		
+		//Alle Blätter sammeln
+		leaves.put((Integer)ref.getStringCode(), ref.getNode());
+		return ref;
 	}
 
 }

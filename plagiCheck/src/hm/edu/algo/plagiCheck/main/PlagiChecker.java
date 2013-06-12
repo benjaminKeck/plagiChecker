@@ -2,6 +2,7 @@ package hm.edu.algo.plagiCheck.main;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -24,11 +25,6 @@ public class PlagiChecker {
 	public static void main(String[] args){
 		
 		final int traceLevel = Log.URGENT;
-		ITrie idTrie = new Trie<String>(new StringCoding(), new StringCounting());
-		ITrie intTrie = new Trie<Integer>(new StringCoding(), new StringCounting());
-		ITrie dateTrie = new Trie<String>(new StringCoding(), new StringCounting());
-		HashMap<Integer, Integer> wordMap = new HashMap<Integer, Integer>();
-		HashMap<Integer, String> index = new HashMap<Integer, String>();
 		
 		
 		//Wenn nicht zwei Textfiles als Parameter angegeben werden.
@@ -37,59 +33,39 @@ public class PlagiChecker {
 			return;
 		}
 		
-		ILexer baseLexer;
+		
+		ILexer baseLexer = new BaseLexer();
 		try{
-			baseLexer = new BaseLexer(new FileReader(args[0]));
+			baseLexer.setFile(new FileReader(args[0]));
 			Log.println(Log.NORMAL, "File "+args[0]+" erfolgreich eingelesen");
 		}catch(FileNotFoundException e){
 			Log.println(Log.URGENT, "Datei "+args[0]+" konnte nicht gefunden werden");
 			e.printStackTrace();
 			return;
 		}
-		IToken token;
-		do{
-			token = baseLexer.getToken();
-			System.out.println(token.getType()+"\t"+token.getValue());
-			//Hier kann der Token in einen Trie gestopft werden...
-			if(token.getType().equals(LexerState.ID)){
-				ITrieReference ref = (TrieReference)idTrie.insert(new CharIterator(token.getValue()));
-				//System.out.println("'"+ref.getCode()+"' wurde an Stelle "+ref.getPosition()+" eingefuegt");
-				wordMap.put((Integer)ref.getPosition(), (Integer)ref.getCode());
-				index.put((Integer)ref.getCode(), token.getValue());
-			}
+		
+		ArrayList<IIndexReference> index1, index2;
+		index1 = baseLexer.read();
+		
+		try{
+			baseLexer.setFile(new FileReader(args[1]));
+			Log.println(Log.NORMAL, "File "+args[1]+" erfolgreich eingelesen");
+		}catch(FileNotFoundException e){
+			Log.println(Log.URGENT, "Datei "+args[1]+" konnte nicht gefunden werden");
+			e.printStackTrace();
+			return;
 		}
-		while(!baseLexer.isEOF());
-		System.out.println("In File1 sind "+index.size()+" verschiedene Woerter");
-		
-		//System.out.println(idTrie.toString());
-		
-//		Iterator it = wordMap.values().iterator();
-//		while(it.hasNext()){
-//			System.out.println("it: "+index.get((Integer)it.next()));
-//		}
+		index2 = baseLexer.read();
 		
 		
-		/*baseLexer.start();
-		System.out.println(baseLexer.getIdTrie().toString());
-		System.out.println(baseLexer.getWsTrie().toString());
-		System.out.println(baseLexer.getIntTrie().toString());
-		/*
-		ITrie trie = new Trie<String>();
-		ITokenizer tokenizer = new Tokenizer(args[0], trie, new StringCoding());
-		tokenizer.start();
-		System.out.println(trie.toString());
-			
+		Iterator it = index2.iterator();
+		while(it.hasNext()){
+			IIndexReference ref = (IndexReference)it.next();
+			System.out.println(ref.getClassCode()+": "+ref.getStringCode());
+		}
 		
-		/*
-		ITrie trie = new Trie<String>();
-		IActionAtInsert action = new StringCoding();
-		trie.put("wolf", action);
-		trie.put("wolfsjunge", action);
-		trie.put("wolfsmann", action);
-		trie.put("wolf", action);
-		trie.put("warze", action);
-		trie.toString();
-		*/
-		//KAux.inhaltVonDateiAuslesen("c:\\users\\keckes\\test.txt");
+		
+		
 	}
+	
 }

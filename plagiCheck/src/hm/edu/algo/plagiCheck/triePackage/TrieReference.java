@@ -8,6 +8,8 @@ public class TrieReference implements ITrieReference{
 	
 	private int depth;
 	
+	private ITrieNode node;
+	
 	private final boolean found;
 	
 	@Override
@@ -16,7 +18,7 @@ public class TrieReference implements ITrieReference{
 	}
 
 	@Override
-	public Object getCode() {
+	public Object getStringCode() {
 		return this.stringCoding;
 	}
 	
@@ -25,11 +27,14 @@ public class TrieReference implements ITrieReference{
 		return this.stringCounting;
 	}
 
-	TrieReference (Object coding, Object counting, int depth, boolean found){
+	TrieReference (ITrieNode node, Object coding, Object counting, int depth, boolean found){
+		this.node = node;
+		
 		this.stringCoding = coding;
 		this.stringCounting=counting;
 		this.depth = depth;
 		this.found = found;
+
 	}
 
 	@Override
@@ -40,5 +45,10 @@ public class TrieReference implements ITrieReference{
 	@Override
 	public int getDepth() {
 		return this.depth;
+	}
+
+	@Override
+	public ITrieNode getNode() {
+		return node;
 	}
 }
