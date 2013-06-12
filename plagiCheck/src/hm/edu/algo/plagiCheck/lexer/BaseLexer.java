@@ -260,7 +260,6 @@ public class BaseLexer implements ILexer{
 			return idTrie.toString();
 		return null;
 	}
-	
 
 
 }

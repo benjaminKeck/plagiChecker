@@ -1,5 +1,7 @@
 package hm.edu.algo.plagiCheck.kAux;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
+
 import hm.edu.algo.plagiCheck.lexer.ILexer.LexerState;
 
 public class IndexReference implements IIndexReference{
@@ -21,5 +23,6 @@ public class IndexReference implements IIndexReference{
 	public int getStringCode() {
 		return stringCode;
 	}
+	
 
 }
