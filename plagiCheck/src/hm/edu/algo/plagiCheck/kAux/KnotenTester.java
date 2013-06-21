@@ -4,12 +4,12 @@ public class KnotenTester {
 	
 	public static void main(String[] args){
 		
-		Knoten root = new Knoten(0);
-		Knoten eins = new Knoten(1);
-		Knoten zwei = new Knoten(2);
-		Knoten drei = new Knoten(3);
-		Knoten vier = new Knoten(4);
-		Knoten fuenf = new Knoten(5);
+		StateKnoten root = new StateKnoten(0);
+		StateKnoten eins = new StateKnoten(1);
+		StateKnoten zwei = new StateKnoten(2);
+		StateKnoten drei = new StateKnoten(3);
+		StateKnoten vier = new StateKnoten(4);
+		StateKnoten fuenf = new StateKnoten(5);
 		
 		root.addKante('a', eins);
 		eins.addKante('b', zwei);
@@ -27,13 +27,16 @@ public class KnotenTester {
 		
 		String text = "abcaabcabcab";
 		
-		Knoten akt = root;
+		StateKnoten akt = root;
 		for(int i=0; i<text.length(); i++){
-			akt = akt.jump(text.charAt(i));
+			akt = akt.getKnoten(text.charAt(i));
 			
 			System.out.print("Num: "+akt.getZustand());
-			if(akt.getEndZustand()!=null)
-				System.out.print("->"+akt.getEndZustand());
+			if(akt.getZustand()==3)
+				System.out.print("->B");
+			else if(akt.getZustand()==5){
+				System.out.print("->A");
+			}
 			System.out.println("");
 		}
 		
