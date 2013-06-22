@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import hm.edu.algo.plagiCheck.alignment.Presenter;
 import hm.edu.algo.plagiCheck.kAux.*;
 import hm.edu.algo.plagiCheck.kAux.StringCoding;
 import hm.edu.algo.plagiCheck.lexer.*;
@@ -57,14 +58,17 @@ public class PlagiChecker {
 		}
 		index2 = baseLexer.read();
 		
+		Iterator it;
+//		it = index2.iterator();
+//		while(it.hasNext()){
+//			IIndexReference ref = (IndexReference)it.next();
+//			System.out.println(ref.getClassCode()+": "+ref.getStringCode()+" "+baseLexer.decode(ref));
+//		}
 		
-		Iterator it = index1.iterator();
-		while(it.hasNext()){
-			IIndexReference ref = (IndexReference)it.next();
-			System.out.println(ref.getClassCode()+": "+ref.getStringCode()+" "+baseLexer.decode(ref));
-		}
-		
-		Scorer scorer = new Scorer(index1, index2);	
+		Scorer scorer = new Scorer(index1, index2, baseLexer);	
+		scorer.startScoring();
+		//scorer.printResult();
+	
 		
 		
 	}

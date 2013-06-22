@@ -25,6 +25,8 @@ public interface ILexer {
 	public String decode(IIndexReference ref);
 	
 	public String showTrie(LexerState state);
+	
+	public IIndexReference insertWordInTrie(LexerState state, String word);
 	/**
 	 * Exception f�r einen nicht gefundenen LexerState.
 	 * Also falls ein Zeichen keinem State zugewiesen kann.

@@ -1,10 +1,110 @@
 package hm.edu.algo.plagiCheck.alignment;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class Presenter implements IPresenter {
 
+	private String wordIn1, wordIn2, wordCons;
+	private ArrayList<String> l1, l2, lCons;
+	private String ausgabe;
 	@Override
 	public String backward() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public Presenter(){
+		wordIn1="";
+		wordIn2="";
+		wordCons="";
+		ausgabe="";
+		l1 = new ArrayList<String>();
+		l2 = new ArrayList<String>();
+		lCons = new ArrayList<String>();
+	}
+	
+	public void print(){
+		int i, count=0;
+		int changeList = 0;
+		Iterator it1 = l1.iterator();
+		Iterator it2 = l2.iterator();
+		Iterator itCons = lCons.iterator();
+		while(it1.hasNext()){
+			switch(changeList){
+			case 0:
+				ausgabe = ausgabe + it1.next();
+				break;
+			case 1:
+				if(itCons.hasNext())
+					ausgabe = ausgabe + itCons.next();
+				else
+					ausgabe = ausgabe +" ";
+				break;
+			case 2:
+				if(it2.hasNext())
+					ausgabe = ausgabe + it2.next();
+				else
+					ausgabe = ausgabe +" ";
+				break;
+				default:
+					ausgabe = ".";
+			}
+			
+			count++;
+			if(count>=32){
+				ausgabe = ausgabe + "|";
+				count=0;
+				changeList++;
+				if(changeList==3){
+					changeList=0;
+					ausgabe = ausgabe +"\n";
+				}
+			}
+		}
+		
+			
+		
+		
+		System.out.println(ausgabe);
+	
+	}	
+		
+	public void setWordForInput1(String word){
+		wordIn1 = wordIn1 + word+" ";
+		for(int i=0; i<word.length(); i++)
+			l1.add(""+word.charAt(i));
+		l1.add(" ");
+	}
+	public void setWordForInput2(String word){
+		wordIn2 = wordIn2 + word+" ";
+		for(int i=0; i<word.length(); i++)
+			l2.add(word.charAt(i)+"");
+		l2.add(" ");
+	}
+	public void setWordForCons(String word){
+		wordCons = wordCons + word+" ";
+		for(int i=0; i<word.length(); i++)
+			lCons.add(word.charAt(i)+"");
+		lCons.add(" ");
+	}
+	public void printHead(){
+		int i=0;
+		for(i=0; i<(3*32)+2; i++){
+			System.out.print("-");
+		}
+		System.out.print("\nInput 1");
+		for(i=0; i<25; i++){
+			System.out.print(" ");
+		}
+		System.out.print("|Consensus");
+		for(i=0; i<23; i++){
+			System.out.print(" ");
+		}
+		System.out.print("|Input 2");
+		for(i=0; i<32; i++){
+			System.out.print(" ");
+		}
+		System.out.println("");
 	}
 }

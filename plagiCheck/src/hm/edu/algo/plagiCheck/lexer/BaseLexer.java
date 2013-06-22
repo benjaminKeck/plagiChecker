@@ -48,7 +48,7 @@ public class BaseLexer implements ILexer{
 	public void setFile(FileReader fr){
 		this.bfr = new BufferedReader(fr);
 		isEOF=false;
-		
+		overlap=0;
 		//read();
 		
 	}
@@ -261,5 +261,21 @@ public class BaseLexer implements ILexer{
 		return null;
 	}
 
-
+	public IIndexReference insertWordInTrie(LexerState state, String word){
+		
+		ITrieReference ref=null;	
+		
+		switch(state){
+			case ID: 	ref = (ITrieReference)idTrie.insert(new CharIterator(word));
+				break;
+			case INT: 	ref = (ITrieReference)intTrie.insert(new CharIterator(word));
+				break;
+			case DATE:	ref = (ITrieReference)dateTrie.insert(new CharIterator(word));
+				break;
+			default: throw new IllegalArgumentException();
+		}
+		return new IndexReference(state, (Integer)ref.getStringCode());
+		
+	
+	}
 }
