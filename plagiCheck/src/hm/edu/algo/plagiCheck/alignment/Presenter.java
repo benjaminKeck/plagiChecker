@@ -30,10 +30,14 @@ public class Presenter implements IPresenter {
 		Iterator it1 = l1.iterator();
 		Iterator it2 = l2.iterator();
 		Iterator itCons = lCons.iterator();
-		while(it1.hasNext()){
+
+		while(it2.hasNext()){
 			switch(changeList){
 			case 0:
-				ausgabe = ausgabe + it1.next();
+				if(it1.hasNext())
+					ausgabe = ausgabe + it1.next();
+				else
+					ausgabe = ausgabe +" ";
 				break;
 			case 1:
 				if(itCons.hasNext())
@@ -62,6 +66,8 @@ public class Presenter implements IPresenter {
 				}
 			}
 		}
+		// Liste 2 noch fertig ausgeben
+
 		
 			
 		
