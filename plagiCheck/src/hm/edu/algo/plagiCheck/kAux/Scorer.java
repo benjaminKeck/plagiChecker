@@ -46,8 +46,12 @@ public class Scorer {
 			
 			//Falls das Wort im Index2 nicht gefunden wird.
 			else if(pos==-1){
-				presenter.setWordForInput1(base.decode(index1.get(i)));
-				presenter.setWordForInput2(getNotFoundChars(base.decode(index1.get(i)).length(), '-'));
+				String temp =base.decode(index1.get(i));
+				IIndexReference tempRef = base.insertWordInTrie(LexerState.ID, getNotFoundChars(temp.length(), '+'));
+				index2.add(i, tempRef);
+				presenter.setWordForInput1(temp);
+				presenter.setWordForInput2(base.decode(tempRef));
+				
 			}
 			
 			//Falls das Wort an einer anderen Position gefunden wird
@@ -56,7 +60,7 @@ public class Scorer {
 				//Falls es im Index2 an einer späteren Stelle gefunden wird.
 				if(pos>i){
 					int wordCount=0;
-					//presenter.setWordForInput1("+++");
+	
 					for(int a=i; a<pos; a++){
 						String temp =base.decode(index2.get(a));
 						IIndexReference tempRef = base.insertWordInTrie(LexerState.ID, getNotFoundChars(temp.length(), '+'));
@@ -67,13 +71,18 @@ public class Scorer {
 					}
 					if(wordCount>1)
 						i+=wordCount;
-//					String temp2 = base.decode(index2.get(i));
-//					IIndexReference tempRef = base.insertWordInTrie(LexerState.ID, getNotFoundChars(temp2.length(), '+'));
-//					index1.add(i, tempRef);
-//					presenter.setWordForInput1(base.decode(index1.get(i)));
-//					presenter.setWordForInput2(temp2);
+
 					continue;
 				}
+//				else if(pos<i){
+//					String temp =base.decode(index1.get(i));
+//					IIndexReference tempRef = base.insertWordInTrie(LexerState.ID, getNotFoundChars(temp.length(), '+'));
+//					index2.add(i, tempRef);
+//					presenter.setWordForInput1(temp);
+//					presenter.setWordForInput2(base.decode(tempRef));
+//					
+//					continue;
+//				}
 				
 				
 				//Falls das Wort schon an gleicher Position existiert, aber durch indexOf() früher gefunden wurde
