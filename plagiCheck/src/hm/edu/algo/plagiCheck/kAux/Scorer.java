@@ -52,6 +52,7 @@ public class Scorer {
 			else if(pos==-1){
 				String temp =base.decode(index1.get(i));
 				IIndexReference tempRef = base.insertWordInTrie(LexerState.ID, getNotFoundChars(temp.length(), '+'));
+				index2.ensureCapacity(i);
 				index2.add(i, tempRef);
 				presenter.setWordForInput1(temp);
 				presenter.setWordForInput2(base.decode(tempRef));
@@ -86,7 +87,8 @@ public class Scorer {
 			
 				
 				//Falls das Wort schon an gleicher Position existiert, aber durch indexOf() früher gefunden wurde
-				if(index2.get(i).equals(index1.get(i))){
+				
+				if(index2.size()<=i && index1.size()<=i && index2.get(i).equals(index1.get(i))){
 					presenter.setWordForInput1(base.decode(index1.get(i)));
 					presenter.setWordForInput2(base.decode(index2.get(i)));
 					presenter.setWordForCons(base.decode(index1.get(i)));

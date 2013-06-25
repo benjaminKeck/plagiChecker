@@ -230,7 +230,9 @@ public class BaseLexer implements ILexer{
 			return true;
 		if(val>=123 && val<=126)
 			return true;
-		if(val>=128 && val<=191)
+		if(val>=128 && val<=255)
+			return true;
+		if(val>=300)
 			return true;
 		return false;
 	}
