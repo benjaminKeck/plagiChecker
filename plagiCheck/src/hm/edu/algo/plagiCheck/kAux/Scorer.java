@@ -12,25 +12,26 @@ public class Scorer {
 	private ArrayList<IIndexReference> index1, index2;
 	private ILexer base;
 	private Presenter presenter;
+	private int longestMatch;
 	
 	public Scorer(ArrayList<IIndexReference> in1, ArrayList<IIndexReference> in2, ILexer base){
 		this.index1 = in1;
 		this.index2 = in2;
 		this.base = base;
 		this.presenter = new Presenter();
+		longestMatch=0;
 	}
-	
+
 	public void printResult(){
 		presenter.printHead();
 	}
+	
 	
 	public void startScoring(){
 		
 		presenter.printHead();
 		int pos=0;
-		int f1Pos=-1;
-		int count=0;
-		int match=0;
+		int matchCountInARow=0;
 		int i=0;
 		
 		for(i=0; i<index1.size(); i++){
@@ -41,8 +42,11 @@ public class Scorer {
 			//Falls Wort an gleicher Position in beiden Indexen
 			if(i==pos){
 				presenter.setWordForInput1(base.decode(index1.get(i)));
-				presenter.setWordForInput2(base.decode(index2.get(pos)));				
+				presenter.setWordForInput2(base.decode(index2.get(pos)));
+				presenter.setWordForCons(base.decode(index1.get(i)));
+				matchCountInARow++;
 			}
+			
 			
 			//Falls das Wort im Index2 nicht gefunden wird.
 			else if(pos==-1){
@@ -52,6 +56,8 @@ public class Scorer {
 				presenter.setWordForInput1(temp);
 				presenter.setWordForInput2(base.decode(tempRef));
 				
+				presenter.setWordForCons(getNotFoundChars(temp.length(), '-'));
+				matchCountInARow=0;
 			}
 			
 			//Falls das Wort an einer anderen Position gefunden wird
@@ -67,6 +73,9 @@ public class Scorer {
 						index1.add(a, tempRef);
 						presenter.setWordForInput1(base.decode(index1.get(a)));
 						presenter.setWordForInput2(temp);
+						
+						presenter.setWordForCons(getNotFoundChars(temp.length(), '-'));
+						matchCountInARow=0;
 						wordCount++;
 					}
 					if(wordCount>1)
@@ -74,117 +83,44 @@ public class Scorer {
 
 					continue;
 				}
-//				else if(pos<i){
-//					String temp =base.decode(index1.get(i));
-//					IIndexReference tempRef = base.insertWordInTrie(LexerState.ID, getNotFoundChars(temp.length(), '+'));
-//					index2.add(i, tempRef);
-//					presenter.setWordForInput1(temp);
-//					presenter.setWordForInput2(base.decode(tempRef));
-//					
-//					continue;
-//				}
-				
+			
 				
 				//Falls das Wort schon an gleicher Position existiert, aber durch indexOf() früher gefunden wurde
 				if(index2.get(i).equals(index1.get(i))){
 					presenter.setWordForInput1(base.decode(index1.get(i)));
 					presenter.setWordForInput2(base.decode(index2.get(i)));
+					presenter.setWordForCons(base.decode(index1.get(i)));
 				}
 				else{
 					presenter.setWordForInput1(base.decode(index1.get(i)));
 					presenter.setWordForInput2(getNotFoundChars(base.decode(index1.get(i)).length(), '-'));
-				}
-				
-				
-				
-				
+					presenter.setWordForCons(getNotFoundChars(base.decode(index1.get(i)).length(), '#'));
+				}				
 			}
-			
-			
-//			if(pos<0)
-//				presenter.setWordForInput2(getNotFoundChars(base.decode(index1.get(i)).length()));
-			/*if(pos!=i){
-				if(pos<0){
-					presenter.setWordForInput2(getNotFoundChars(base.decode(index1.get(i)).length(), '-'));
-				}
-				if(pos>i){
-					IIndexReference tempRef = base.insertWordInTrie(LexerState.ID, getNotFoundChars(3, '+'));
-					index1.add(i, tempRef);
-				}
-				else if(pos<i){
-					index2.add(i, index1.get(i));
-				}
-			}
-			
-				presenter.setWordForInput1(base.decode(index1.get(i)));
-				presenter.setWordForInput2(base.decode(index2.get(i)));
-			*/
+		
+			if(matchCountInARow>longestMatch)
+				longestMatch=matchCountInARow;
 		}
-		/*
-		Iterator it = index1.iterator();
-		while(it.hasNext())
-			presenter.setWordForInput1(base.decode((IIndexReference)it.next()));
-		it = index2.iterator();
-		while(it.hasNext()){
-			presenter.setWordForInput2(base.decode((IIndexReference)it.next()));
-		}
-		*/
-		
-		
-		/**
-		 * 
-		 
-		
-		
-		Iterator<IIndexReference> it = index1.iterator();
-		while(it.hasNext()){
-			IIndexReference ref = it.next();
-			presenter.setWordForInput1(base.decode(ref));
-			f1Pos++;
-			
-			pos = index2.indexOf(ref);
-			if(pos!=f1Pos && pos>0){
-				if(index2.get(pos).equals(ref)){
-					pos=f1Pos;
-				}
-			}
-			if(pos>=0){
-				count++;
-				if(f1Pos == pos)
-					presenter.setWordForCons(base.decode(ref));
-				else{
-					String word="";
-					for(int i=0; i<base.decode(ref).length(); i++){
-						word = word +"-";
-					}
-					presenter.setWordForCons(word);
-				}
-				//System.out.println(base.decode(ref)+" an Stelle "+pos+" Schon "+count+" in a row");
-			}
-			else{
-				count=0;
-				String word="";
-				for(int i=0; i<base.decode(ref).length(); i++){
-					word = word +"_";
-				}
-				presenter.setWordForCons(word);
-			}
-		}
-		*/
+
+	
 		presenter.print();
 		
 	}
-	private boolean isThere(IIndexReference word){
-		for(int i=0; i<index2.size(); i++){
-			if(index2.get(i).getClassCode().equals(word.getClassCode())){
-				if(index2.get(i).getStringCode()== word.getStringCode()){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
 	
+	/**
+	 * Gibt den längsten Match zurück.
+	 * @return longestMatch
+	 */
+	public int getLongestMatch() {
+		return longestMatch+1;
+	}
+
+	/**
+	 * Gibt einen String aus dem sign in der länge length zurück.
+	 * @param length
+	 * @param sign
+	 * @return auffüllString
+	 */
 	private String getNotFoundChars(int length, Character sign){
 		String word="";
 		for(int i=0; i<length; i++){
