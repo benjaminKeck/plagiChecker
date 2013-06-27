@@ -41,9 +41,8 @@ public class Scorer {
 			
 			//Falls Wort an gleicher Position in beiden Indexen
 			if(i==pos){
-				presenter.setWordForInput1(base.decode(index1.get(i)));
-				presenter.setWordForInput2(base.decode(index2.get(pos)));
-				presenter.setWordForCons(base.decode(index1.get(i)));
+				presenter.setOutput(base.decode(index1.get(i)), base.decode(index2.get(pos)), base.decode(index1.get(i)));
+
 				matchCountInARow++;
 			}
 			
@@ -52,12 +51,12 @@ public class Scorer {
 			else if(pos==-1){
 				String temp =base.decode(index1.get(i));
 				IIndexReference tempRef = base.insertWordInTrie(LexerState.ID, getNotFoundChars(temp.length(), '+'));
-				index2.ensureCapacity(i);
-				index2.add(i, tempRef);
-				presenter.setWordForInput1(temp);
-				presenter.setWordForInput2(base.decode(tempRef));
+				if(index2.size()<i)
+					index2.add(tempRef);
+				else
+					index2.add(i, tempRef);
 				
-				presenter.setWordForCons(getNotFoundChars(temp.length(), '-'));
+				presenter.setOutput(temp, base.decode(tempRef), getNotFoundChars(temp.length(), '-'));
 				matchCountInARow=0;
 			}
 			
@@ -72,10 +71,8 @@ public class Scorer {
 						String temp =base.decode(index2.get(a));
 						IIndexReference tempRef = base.insertWordInTrie(LexerState.ID, getNotFoundChars(temp.length(), '+'));
 						index1.add(a, tempRef);
-						presenter.setWordForInput1(base.decode(index1.get(a)));
-						presenter.setWordForInput2(temp);
 						
-						presenter.setWordForCons(getNotFoundChars(temp.length(), '-'));
+						presenter.setOutput(base.decode(index1.get(a)), temp, getNotFoundChars(temp.length(), '-'));
 						matchCountInARow=0;
 						wordCount++;
 					}
@@ -88,15 +85,13 @@ public class Scorer {
 				
 				//Falls das Wort schon an gleicher Position existiert, aber durch indexOf() früher gefunden wurde
 				
-				if(index2.size()<=i && index1.size()<=i && index2.get(i).equals(index1.get(i))){
-					presenter.setWordForInput1(base.decode(index1.get(i)));
-					presenter.setWordForInput2(base.decode(index2.get(i)));
-					presenter.setWordForCons(base.decode(index1.get(i)));
+				if(index2.size()>i && index2.get(i).equals(index1.get(i))){
+					String temp = base.decode(index1.get(i));
+					presenter.setOutput(temp, temp, temp);
 				}
 				else{
-					presenter.setWordForInput1(base.decode(index1.get(i)));
-					presenter.setWordForInput2(getNotFoundChars(base.decode(index1.get(i)).length(), '-'));
-					presenter.setWordForCons(getNotFoundChars(base.decode(index1.get(i)).length(), '#'));
+					String temp = base.decode(index1.get(i));
+					presenter.setOutput(base.decode(index1.get(i)), getNotFoundChars(temp.length(), '-'), getNotFoundChars(temp.length(), '#'));
 				}				
 			}
 		
@@ -104,7 +99,6 @@ public class Scorer {
 				longestMatch=matchCountInARow;
 		}
 
-	
 		presenter.print();
 		
 	}

@@ -75,7 +75,21 @@ public class Presenter implements IPresenter {
 		System.out.println(ausgabe);
 	
 	}	
+	public void setOutput(String in1, String in2, String con){
 		
+		if(in1.length() != in2.length() && in2.length() != con.length())
+			throw new IllegalArgumentException("Ungleiche Laenger der Ausgabe");
+		
+		for(int i=0; i<in1.length(); i++)
+			l1.add(""+in1.charAt(i));
+		for(int i=0; i<in2.length(); i++)
+			l2.add(""+in2.charAt(i));
+		for(int i=0; i<con.length(); i++)
+			lCons.add(""+con.charAt(i));
+		l1.add(" ");
+		l2.add(" ");
+		lCons.add(" ");
+	}
 	public void setWordForInput1(String word){
 		wordIn1 = wordIn1 + word+" ";
 		for(int i=0; i<word.length(); i++)

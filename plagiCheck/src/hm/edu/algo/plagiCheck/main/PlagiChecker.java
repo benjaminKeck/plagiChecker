@@ -68,7 +68,7 @@ public class PlagiChecker {
 		Scorer scorer = new Scorer(index1, index2, baseLexer);	
 		scorer.startScoring();
 		
-		System.out.println("\n\nLongest Match: "+scorer.getLongestMatch());
+		
 		//scorer.printResult();
 	
 		
